@@ -11,7 +11,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Ganadero Élite">
-    <link rel="manifest" href="/manifest.json">
+    <!-- Cambiar las rutas absolutas por relativas -->
+<link rel="manifest" href="./manifest.json">
+<meta name="theme-color" content="#030303">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23030303'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='%23fbbf24'%3E🐄%3C/text%3E%3C/svg%3E">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -139,7 +141,7 @@
 // ==================== REGISTRAR SERVICE WORKER ====================
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-        navigator.serviceWorker.register('/sw.js').then(function(registration) {
+        navigator.serviceWorker.register('./sw.js').then(function(registration) {
             console.log('SW registrado:', registration.scope);
         }).catch(function(err) {
             console.log('SW falló:', err);
