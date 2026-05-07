@@ -139,14 +139,13 @@
 
 <script>
 // ==================== REGISTRAR SERVICE WORKER ====================
-// Reemplaza TOTO el bloque de registro del Service Worker por esto:
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-        navigator.serviceWorker.register('https://yerson-finca.github.io/GANADERIA-APP/GANADERO-ELITE/sw.js')
-        .then(function(registration) {
-            console.log('SW registrado:', registration.scope);
+        navigator.serviceWorker.register('./sw.js', {scope: './'})
+        .then(function(reg) {
+            console.log('SW OK');
         }).catch(function(err) {
-            console.log('SW falló:', err);
+            console.log('SW Error:', err);
         });
     });
 }
