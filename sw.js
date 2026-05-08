@@ -1,42 +1,60 @@
-// Service Worker para GANADERO ÉLITE - Modo Offline Completo
-var CACHE_NAME = 'ganadero-elite-v6';
+// Service Worker para GANADERO ÉLITE - Offline completo con CORS
+var CACHE_NAME = 'ganadero-elite-v7';
 
-// Archivos que se guardan para funcionar sin internet
-var urlsToCache = [
+// Archivos propios
+var urlsLocales = [
     './',
     './index.html',
     './styles.css',
     './app.js',
-    './manifest.json',
+    './manifest.json'
+];
+
+// Archivos externos (CDN) - necesitan modo CORS
+var urlsExternas = [
     'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2',
-    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-regular-400.woff2'
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-regular-400.woff2',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2'
 ];
 
-// Instalación - guardar todo en caché
 self.addEventListener('install', function(event) {
     event.waitUntil(
         caches.open(CACHE_NAME).then(function(cache) {
-            console.log('Cacheando archivos para modo offline...');
-            return cache.addAll(urlsToCache).catch(function(error) {
-                console.log('Algunos archivos no se pudieron cachear:', error);
+            console.log('Cacheando archivos locales...');
+            // Cachear archivos locales (mismo dominio)
+            cache.addAll(urlsLocales).catch(function(e) {
+                console.log('Error cacheando locales:', e);
             });
+            
+            // Cachear archivos externos (CDN) con modo CORS
+            urlsExternas.forEach(function(url) {
+                fetch(url, { mode: 'cors' }).then(function(response) {
+                    if (response.status === 200) {
+                        cache.put(url, response.clone());
+                        console.log('Cacheado:', url);
+                    }
+                }).catch(function(e) {
+                    console.log('No se pudo cachear:', url);
+                });
+            });
+            
+            return Promise.resolve();
         }).then(function() {
             return self.skipWaiting();
         })
     );
 });
 
-// Activación - limpiar cachés viejos
 self.addEventListener('activate', function(event) {
     event.waitUntil(
-        caches.keys().then(function(cacheNames) {
+        caches.keys().then(function(keys) {
             return Promise.all(
-                cacheNames.map(function(cacheName) {
-                    if (cacheName !== CACHE_NAME) {
-                        console.log('Eliminando caché viejo:', cacheName);
-                        return caches.delete(cacheName);
+                keys.map(function(key) {
+                    if (key !== CACHE_NAME) {
+                        console.log('Eliminando caché viejo:', key);
+                        return caches.delete(key);
                     }
                 })
             );
@@ -46,44 +64,35 @@ self.addEventListener('activate', function(event) {
     );
 });
 
-// Estrategia: Cache First (carga desde caché, actualiza en segundo plano)
 self.addEventListener('fetch', function(event) {
-    // Solo manejar peticiones GET
     if (event.request.method !== 'GET') return;
-
+    
+    // Para URLs externas, usar modo no-cors
+    var request = event.request;
+    
     event.respondWith(
-        caches.match(event.request).then(function(cachedResponse) {
-            if (cachedResponse) {
-                // Actualizar caché en segundo plano
-                fetch(event.request).then(function(networkResponse) {
-                    if (networkResponse && networkResponse.status === 200) {
-                        var responseClone = networkResponse.clone();
-                        caches.open(CACHE_NAME).then(function(cache) {
-                            cache.put(event.request, responseClone);
-                        });
-                    }
-                }).catch(function() {
-                    // Sin conexión, usar caché
-                });
-                return cachedResponse;
+        caches.match(request).then(function(cached) {
+            if (cached) {
+                return cached;
             }
-
-            // No está en caché, intentar de la red
-            return fetch(event.request).then(function(networkResponse) {
-                if (!networkResponse || networkResponse.status !== 200) {
-                    return networkResponse;
+            
+            return fetch(request).then(function(response) {
+                if (!response || response.status !== 200) {
+                    return response;
                 }
-                var responseClone = networkResponse.clone();
+                
+                var responseClone = response.clone();
                 caches.open(CACHE_NAME).then(function(cache) {
-                    cache.put(event.request, responseClone);
+                    cache.put(request, responseClone);
                 });
-                return networkResponse;
+                
+                return response;
             }).catch(function() {
-                // Si es una página HTML, devolver la página principal
-                if (event.request.headers.get('accept').includes('text/html')) {
+                // Si falla la red y es una página, devolver index.html
+                if (request.headers.get('accept') && 
+                    request.headers.get('accept').includes('text/html')) {
                     return caches.match('./index.html');
                 }
-                // Si no, devolver respuesta vacía
                 return new Response('', { status: 503 });
             });
         })
