@@ -1,6 +1,8 @@
-var CACHE_NAME = 'ganadero-v9';
+// GANADERO ÉLITE - Service Worker v11
+var CACHE_NAME = 'ganadero-v11';
 
 self.addEventListener('install', function(e) {
+    console.log('SW: Instalando...');
     e.waitUntil(
         caches.open(CACHE_NAME).then(function(cache) {
             return cache.addAll([
@@ -9,19 +11,25 @@ self.addEventListener('install', function(e) {
                 './styles.css',
                 './app.js',
                 './manifest.json'
-            ]).catch(function() {});
+            ]);
         }).then(function() {
+            console.log('SW: Instalado correctamente');
             return self.skipWaiting();
         })
     );
 });
 
 self.addEventListener('activate', function(e) {
+    console.log('SW: Activado');
     e.waitUntil(
         caches.keys().then(function(keys) {
-            return Promise.all(keys.map(function(k) {
-                if (k !== CACHE_NAME) return caches.delete(k);
-            }));
+            return Promise.all(
+                keys.filter(function(k) { return k !== CACHE_NAME; })
+                    .map(function(k) {
+                        console.log('SW: Eliminando caché viejo:', k);
+                        return caches.delete(k);
+                    })
+            );
         }).then(function() {
             return self.clients.claim();
         })
@@ -29,26 +37,16 @@ self.addEventListener('activate', function(e) {
 });
 
 self.addEventListener('fetch', function(e) {
-    if (e.request.method !== 'GET') return;
-
     e.respondWith(
-        caches.match(e.request).then(function(cached) {
-            if (cached) return cached;
-
-            return fetch(e.request).then(function(response) {
-                if (response && response.status === 200) {
-                    var clone = response.clone();
-                    caches.open(CACHE_NAME).then(function(cache) {
-                        cache.put(e.request, clone);
-                    });
-                }
-                return response;
-            }).catch(function() {
-                // Si falla la red, devolver index.html para navegación
-                if (e.request.mode === 'navigate') {
-                    return caches.match('./index.html');
-                }
-                return new Response('', {status: 200});
+        fetch(e.request).then(function(response) {
+            var clone = response.clone();
+            caches.open(CACHE_NAME).then(function(cache) {
+                cache.put(e.request, clone);
+            });
+            return response;
+        }).catch(function() {
+            return caches.match(e.request).then(function(cached) {
+                return cached || caches.match('./index.html');
             });
         })
     );
