@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html lang="es-CO">
+    <script>
+// Limpiar todos los Service Workers viejos al cargar
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for (var i = 0; i < registrations.length; i++) {
+            registrations[i].unregister();
+        }
+        console.log('SW viejos eliminados');
+    });
+}
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
