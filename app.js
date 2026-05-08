@@ -161,22 +161,22 @@ function getRendimiento(h) {
 }
 
 // ==================== NAVEGACIÓN ====================
-document.getElementById('nav').addEventListener('click', function(e) {
+// ==================== NAVEGACIÓN (MENÚ INFERIOR) ====================
+document.getElementById('bottomNav').addEventListener('click', function(e) {
     var btn = e.target.closest('button');
-    if (btn) goPage(btn.getAttribute('data-p'));
+    if (!btn || !btn.hasAttribute('data-p')) return;
+    var p = btn.getAttribute('data-p');
+    if (p) goPage(p);
 });
 
 function goPage(p) {
-    ['v-lote','v-precios','v-stock','v-sanidad','v-config','v-perfil'].forEach(function(id) {
-        document.getElementById(id).classList.add('hidden');
-    });
+    ['v-lote','v-stock','v-sanidad','v-config','v-perfil'].forEach(function(id) { document.getElementById(id).classList.add('hidden'); });
     document.getElementById('v-' + p).classList.remove('hidden');
-    var btns = document.querySelectorAll('#nav .nav-btn');
+    var btns = document.querySelectorAll('#bottomNav .bn-btn');
     for (var i = 0; i < btns.length; i++) btns[i].classList.remove('active');
-    var ab = document.querySelector('#nav button[data-p="' + p + '"]');
+    var ab = document.querySelector('#bottomNav button[data-p="' + p + '"]');
     if (ab) ab.classList.add('active');
     if (p === 'lote') renderLote();
-    if (p === 'precios') renderPrecios();
     if (p === 'stock') renderStock();
     if (p === 'sanidad') renderSanidad();
     if (p === 'config') renderConfig();
