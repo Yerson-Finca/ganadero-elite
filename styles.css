@@ -80,3 +80,80 @@ input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(25
 .config-section{background:rgba(255,255,255,.02);padding:12px;border-radius:14px;margin-bottom:10px;border:1px solid rgba(255,255,255,.05)}
 .config-section h3{font-size:.75rem;font-weight:700;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .hidden{display:none!important}.flex-col{display:flex;flex-direction:column}.gap8{gap:8px}.gap10{gap:10px}.mb6{margin-bottom:6px}.mb8{margin-bottom:8px}.mb14{margin-bottom:14px}.mt8{margin-top:8px}.mt12{margin-top:12px}.mt20{margin-top:20px}.pt12{padding-top:12px}.bt{border-top:1px solid var(--border)}
+/* ========== MENÚ INFERIOR FLOTANTE ========== */
+.bottom-nav {
+    position: fixed;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0;
+    background: var(--card);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 6px 8px;
+    border: 1px solid var(--border);
+    z-index: 100;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    width: auto;
+    max-width: 95%;
+}
+
+.bn-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    padding: 8px 14px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: .55rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 14px;
+    transition: all .3s ease;
+    min-width: 50px;
+}
+
+.bn-btn i {
+    font-size: 1.1rem;
+}
+
+.bn-btn.active {
+    color: var(--accent);
+}
+
+.bn-btn.active i {
+    color: var(--accent);
+}
+
+/* Botón central (+) */
+.bn-btn-add {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent-grad);
+    color: #000;
+    border: none;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: -10px 4px 0 4px;
+    box-shadow: 0 6px 20px var(--accent-glow);
+    transition: all .3s ease;
+    flex-shrink: 0;
+}
+
+.bn-btn-add:active {
+    transform: scale(.9);
+}
+
+/* Ajuste del body para que no tape el menú */
+body {
+    padding-bottom: 90px !important;
+}
