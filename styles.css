@@ -11,7 +11,6 @@ body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var
 .splash.hide{opacity:0;pointer-events:none}
 .splash-icon{font-size:4rem;animation:pulse 2s infinite}
 .splash-title{font-weight:900;font-size:1.5rem;color:var(--accent);margin-top:16px}
-.splash-sub{font-size:.7rem;color:var(--muted);margin-top:4px}
 .toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--accent);padding:14px 22px;border-radius:30px;z-index:1000;font-weight:500;font-size:.8rem;color:var(--text);animation:slideDown .4s ease,fadeIn .4s ease;box-shadow:0 10px 30px rgba(0,0,0,.5);text-align:center;max-width:90%}
 .page{animation:fadeIn .3s ease}
 header{text-align:center;padding:12px 0 10px;border-bottom:1px solid rgba(255,255,255,.05);margin-bottom:2px}
@@ -35,10 +34,8 @@ input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(25
 .btn-purple{background:rgba(167,139,250,.1);color:#a78bfa;border:1px solid rgba(167,139,250,.25);font-weight:600}
 .btn-danger{background:rgba(239,68,68,.1);color:#ef4444;border:1px solid rgba(239,68,68,.25);font-weight:600}
 .btn-sm{width:auto;padding:8px 14px;font-size:.7rem;min-height:38px}
-.row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.025)}
-.row:last-child{border-bottom:none}
-.row-label{color:var(--muted);font-size:.76rem;font-weight:400;display:flex;align-items:center;gap:7px}
-.row-label i{font-size:.82rem;width:18px;text-align:center}
+.row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.025)}.row:last-child{border-bottom:none}
+.row-label{color:var(--muted);font-size:.76rem;font-weight:400;display:flex;align-items:center;gap:7px}.row-label i{font-size:.82rem;width:18px;text-align:center}
 .row-val{font-weight:600;font-size:.85rem;letter-spacing:-.01em}
 .capital-value{font-size:1.9rem;font-weight:800;color:var(--accent);line-height:1.05;margin-bottom:4px}
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}
