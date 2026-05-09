@@ -4,77 +4,59 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>GANADERO ÉLITE</title>
-    
-    <!-- Metadatos PWA -->
     <meta name="theme-color" content="#030303">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Ganadero Élite">
     <link rel="manifest" href="./manifest.json">
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23030303'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='%23fbbf24'%3E🐄%3C/text%3E%3C/svg%3E">
-    
-    <!-- Fuentes externas (se cachean para offline) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-    <!-- Fondo animado -->
     <div class="aurora"></div>
-    
-    <!-- Contenedores para notificaciones y modales -->
     <div id="toastContainer"></div>
     <div id="modalContainer"></div>
     
-    <!-- Pantalla de carga inicial -->
     <div class="splash" id="splash">
         <div class="splash-icon">🐄</div>
         <div class="splash-title">GANADERO ÉLITE</div>
-        <div class="splash-sub">v2.0</div>
+        <div class="splash-sub">v2.1</div>
     </div>
 
-    <!-- Contenedor principal de la aplicación -->
     <div class="app">
         <header>
             <h1><i class="fa-solid fa-crown"></i> GANADERO ÉLITE</h1>
             <p class="subtitle">Gestión Inteligente</p>
         </header>
-        
-        <!-- Páginas de la app (solo una visible a la vez) -->
-        <div id="v-lote" class="page"></div>      <!-- Dashboard principal -->
-        <div id="v-stock" class="hidden page"></div>  <!-- Precios + Stock -->
-        <div id="v-sanidad" class="hidden page"></div> <!-- Productos veterinarios -->
-        <div id="v-config" class="hidden page"></div>  <!-- Configuración -->
-        <div id="v-perfil" class="hidden page"></div>  <!-- Perfil del animal -->
+        <div id="v-lote" class="page"></div>
+        <div id="v-insumos" class="hidden page"></div>
+        <div id="v-sanidad" class="hidden page"></div>
+        <div id="v-ajustes" class="hidden page"></div>
+        <div id="v-perfil" class="hidden page"></div>
     </div>
 
-    <!-- ==================== MENÚ INFERIOR FLOTANTE ==================== -->
-    <!-- Este menú reemplaza la barra de navegación superior -->
+    <!-- Menú inferior -->
     <nav class="bottom-nav" id="bottomNav">
         <button class="bn-btn active" data-p="lote">
-            <i class="fa-solid fa-chart-pie"></i>
-            <span>Lote</span>
+            <i class="fa-solid fa-chart-pie"></i><span>Lote</span>
         </button>
-        <button class="bn-btn" data-p="stock">
-            <i class="fa-solid fa-boxes"></i>
-            <span>Insumos</span>
+        <button class="bn-btn" data-p="insumos">
+            <i class="fa-solid fa-boxes"></i><span>Insumos</span>
         </button>
-        <!-- Botón central para agregar animal -->
         <button class="bn-btn-add" onclick="toggleAdd()">
             <i class="fa-solid fa-plus"></i>
         </button>
         <button class="bn-btn" data-p="sanidad">
-            <i class="fa-solid fa-syringe"></i>
-            <span>Sanidad</span>
+            <i class="fa-solid fa-syringe"></i><span>Sanidad</span>
         </button>
-        <button class="bn-btn" data-p="config">
-            <i class="fa-solid fa-gear"></i>
-            <span>Ajustes</span>
+        <button class="bn-btn" data-p="ajustes">
+            <i class="fa-solid fa-gear"></i><span>Ajustes</span>
         </button>
     </nav>
 
-    <!-- ==================== MODAL FLOTANTE PARA AGREGAR ANIMAL ==================== -->
-    <!-- Se abre al tocar el botón (+) del menú inferior -->
+    <!-- Modal agregar animal -->
     <div class="modal-overlay hidden" id="addAnimalModal">
         <div class="modal">
             <div style="font-weight:700;font-size:.9rem;margin-bottom:12px;color:var(--accent);">🐄 NUEVO ANIMAL</div>
