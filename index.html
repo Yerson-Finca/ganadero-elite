@@ -22,13 +22,13 @@
     <div class="splash" id="splash">
         <div class="splash-icon">🐄</div>
         <div class="splash-title">GANADERO ÉLITE</div>
-        <div class="splash-sub">v2.1</div>
+        <div class="splash-sub">v2.2</div>
     </div>
 
     <div class="app">
         <header>
             <h1><i class="fa-solid fa-crown"></i> GANADERO ÉLITE</h1>
-            <p class="subtitle">Gestión Inteligente</p>
+            <p class="subtitle">Nutrición Inteligente</p>
         </header>
         <div id="v-lote" class="page"></div>
         <div id="v-insumos" class="hidden page"></div>
@@ -37,26 +37,14 @@
         <div id="v-perfil" class="hidden page"></div>
     </div>
 
-    <!-- Menú inferior -->
     <nav class="bottom-nav" id="bottomNav">
-        <button class="bn-btn active" data-p="lote">
-            <i class="fa-solid fa-chart-pie"></i><span>Lote</span>
-        </button>
-        <button class="bn-btn" data-p="insumos">
-            <i class="fa-solid fa-boxes"></i><span>Insumos</span>
-        </button>
-        <button class="bn-btn-add" onclick="toggleAdd()">
-            <i class="fa-solid fa-plus"></i>
-        </button>
-        <button class="bn-btn" data-p="sanidad">
-            <i class="fa-solid fa-syringe"></i><span>Sanidad</span>
-        </button>
-        <button class="bn-btn" data-p="ajustes">
-            <i class="fa-solid fa-gear"></i><span>Ajustes</span>
-        </button>
+        <button class="bn-btn active" data-p="lote"><i class="fa-solid fa-chart-pie"></i><span>Lote</span></button>
+        <button class="bn-btn" data-p="insumos"><i class="fa-solid fa-boxes"></i><span>Insumos</span></button>
+        <button class="bn-btn-add" onclick="toggleAdd()"><i class="fa-solid fa-plus"></i></button>
+        <button class="bn-btn" data-p="sanidad"><i class="fa-solid fa-syringe"></i><span>Sanidad</span></button>
+        <button class="bn-btn" data-p="ajustes"><i class="fa-solid fa-gear"></i><span>Ajustes</span></button>
     </nav>
 
-    <!-- Modal agregar animal -->
     <div class="modal-overlay hidden" id="addAnimalModal">
         <div class="modal">
             <div style="font-weight:700;font-size:.9rem;margin-bottom:12px;color:var(--accent);">🐄 NUEVO ANIMAL</div>
