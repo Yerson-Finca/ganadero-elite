@@ -1,67 +1,56 @@
-<!DOCTYPE html>
-<html lang="es-CO">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>GANADERO ÉLITE v3.1</title>
-    <meta name="theme-color" content="#030303">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Ganadero Élite">
-    <link rel="manifest" href="./manifest.json">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23030303'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='%23fbbf24'%3E🐄%3C/text%3E%3C/svg%3E">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./styles.css">
-</head>
-<body>
-    <div class="aurora"></div>
-    <div id="toastContainer"></div>
-    <div id="modalContainer"></div>
+<!-- BeforeInstallPrompt -->
+<script>
+var deferredPrompt;
+window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    // Mostrar botón de instalar después de 10 segundos
+    setTimeout(function() {
+        if (deferredPrompt) {
+            var installBtn = document.createElement('button');
+            installBtn.className = 'btn btn-gold';
+            installBtn.style.cssText = 'position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:300;width:auto;padding:12px 24px;animation:slideDown 0.5s ease;';
+            installBtn.innerHTML = '<i class="fa-solid fa-download"></i> INSTALAR APP';
+            installBtn.onclick = function() {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(function(result) {
+                    if (result.outcome === 'accepted') installBtn.remove();
+                    deferredPrompt = null;
+                });
+            };
+            document.body.appendChild(installBtn);
+        }
+    }, 10000);
+});
 
-    <div class="splash" id="splash" onclick="this.classList.add('hide')">
-        <div class="splash-icon">🐄</div>
-        <div class="splash-title">GANADERO ÉLITE</div>
-        <div class="splash-sub">v3.1 · IA + Alertas</div>
-    </div>
+window.addEventListener('appinstalled', function() {
+    deferredPrompt = null;
+    console.log('PWA instalada');
+});
+</script>
 
-    <div class="app">
-        <header>
-            <h1><i class="fa-solid fa-crown"></i> GANADERO ÉLITE</h1>
-            <p class="subtitle">Inteligencia Artificial · Alertas Inteligentes</p>
-        </header>
-        <div id="v-lote" class="page"></div>
-        <div id="v-insumos" class="hidden page"></div>
-        <div id="v-sanidad" class="hidden page"></div>
-        <div id="v-ajustes" class="hidden page"></div>
-        <div id="v-perfil" class="hidden page"></div>
-    </div>
+<!-- Notificaciones push locales -->
+<script>
+function programarNotificaciones() {
+    if (!('Notification' in window) || Notification.permission !== 'granted') return;
+    var ahora = new Date();
+    var manana8am = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate() + 1, 8, 0, 0);
+    var tiempo = manana8am.getTime() - ahora.getTime();
+    setTimeout(function() {
+        new Notification('🐄 GANADERO ÉLITE', { body: 'Revisa el estado de tus animales hoy.', icon: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32"%3E%3Ctext y="22" font-size="20"%3E🐄%3C/text%3E%3C/svg%3E', vibrate: [100, 50, 100], tag: 'diario' });
+        programarNotificaciones();
+    }, Math.min(tiempo, 86400000));
+}
+if ('Notification' in window && Notification.permission === 'default') {
+    setTimeout(function() { Notification.requestPermission().then(function(p) { if (p === 'granted') programarNotificaciones(); }); }, 5000);
+}
+if ('Notification' in window && Notification.permission === 'granted') programarNotificaciones();
 
-    <!-- MENÚ INFERIOR: Optimizado para pulgar derecho -->
-    <nav class="bottom-nav" id="bottomNav">
-        <button class="bn-btn" data-p="ajustes"><i class="fa-solid fa-gear"></i><span>Ajustes</span></button>
-        <div class="bn-sep"></div>
-        <button class="bn-btn" data-p="sanidad"><i class="fa-solid fa-syringe"></i><span>Sanidad</span></button>
-        <div class="bn-sep"></div>
-        <button class="bn-btn-add" onclick="toggleAdd()"><i class="fa-solid fa-plus"></i></button>
-        <div class="bn-sep"></div>
-        <button class="bn-btn" data-p="insumos"><i class="fa-solid fa-boxes"></i><span>Insumos</span></button>
-        <div class="bn-sep"></div>
-        <button class="bn-btn active" data-p="lote"><i class="fa-solid fa-chart-pie"></i><span>Lote</span></button>
-    </nav>
-
-    <div class="modal-overlay hidden" id="addAnimalModal">
-        <div class="modal">
-            <div class="modal-title">🐄 NUEVO ANIMAL</div>
-            <div class="flex-col gap10">
-                <input id="newN" type="text" placeholder="Nombre del Animal">
-                <input id="newW" type="number" placeholder="Peso Inicial (kg)" min="20" max="2000">
-                <button class="btn btn-gold" onclick="addAnimal()"><i class="fa-solid fa-check-circle"></i> GUARDAR</button>
-                <button class="btn btn-gray" onclick="closeAddModal()">CANCELAR</button>
-            </div>
-        </div>
-    </div>
-
-    <script src="./app.js"></script>
-</body>
-</html>
+// Badge en icono (alertas)
+function actualizarBadge(count) {
+    if ('setAppBadge' in navigator) {
+        if (count > 0) navigator.setAppBadge(count).catch(function() {});
+        else navigator.clearAppBadge().catch(function() {});
+    }
+}
+</script>
