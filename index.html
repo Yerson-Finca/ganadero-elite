@@ -59,5 +59,62 @@
     </div>
 
     <script src="./app.js"></script>
+
+    <!-- BeforeInstallPrompt -->
+<script>
+var deferredPrompt;
+window.addEventListener('beforeinstallprompt', function(e) {
+    e.preventDefault();
+    deferredPrompt = e;
+    // Mostrar botón de instalar después de 10 segundos
+    setTimeout(function() {
+        if (deferredPrompt) {
+            var installBtn = document.createElement('button');
+            installBtn.className = 'btn btn-gold';
+            installBtn.style.cssText = 'position:fixed;bottom:100px;left:50%;transform:translateX(-50%);z-index:300;width:auto;padding:12px 24px;animation:slideDown 0.5s ease;';
+            installBtn.innerHTML = '<i class="fa-solid fa-download"></i> INSTALAR APP';
+            installBtn.onclick = function() {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(function(result) {
+                    if (result.outcome === 'accepted') installBtn.remove();
+                    deferredPrompt = null;
+                });
+            };
+            document.body.appendChild(installBtn);
+        }
+    }, 10000);
+});
+
+window.addEventListener('appinstalled', function() {
+    deferredPrompt = null;
+    console.log('PWA instalada');
+});
+</script>
+
+<!-- Notificaciones push locales -->
+<script>
+function programarNotificaciones() {
+    if (!('Notification' in window) || Notification.permission !== 'granted') return;
+    var ahora = new Date();
+    var manana8am = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate() + 1, 8, 0, 0);
+    var tiempo = manana8am.getTime() - ahora.getTime();
+    setTimeout(function() {
+        new Notification('🐄 GANADERO ÉLITE', { body: 'Revisa el estado de tus animales hoy.', icon: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32"%3E%3Ctext y="22" font-size="20"%3E🐄%3C/text%3E%3C/svg%3E', vibrate: [100, 50, 100], tag: 'diario' });
+        programarNotificaciones();
+    }, Math.min(tiempo, 86400000));
+}
+if ('Notification' in window && Notification.permission === 'default') {
+    setTimeout(function() { Notification.requestPermission().then(function(p) { if (p === 'granted') programarNotificaciones(); }); }, 5000);
+}
+if ('Notification' in window && Notification.permission === 'granted') programarNotificaciones();
+
+// Badge en icono (alertas)
+function actualizarBadge(count) {
+    if ('setAppBadge' in navigator) {
+        if (count > 0) navigator.setAppBadge(count).catch(function() {});
+        else navigator.clearAppBadge().catch(function() {});
+    }
+}
+</script>
 </body>
 </html>
