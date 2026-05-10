@@ -3,13 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>GANADERO ÉLITE v3.2.2</title>
+    <title>GANADERO ÉLITE v3.2.3</title>
+    
+    <!-- PWA METAS -->
     <meta name="theme-color" content="#030303">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Ganadero Élite">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="description" content="Gestión inteligente de ganadería con IA - Engorde y Leche">
+    
+    <!-- MANIFEST -->
     <link rel="manifest" href="./manifest.json">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23030303'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='%23fbbf24'%3E🐄%3C/text%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23030303'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='%23fbbf24'%3E🧠%3C/text%3E%3C/svg%3E">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192'%3E%3Crect width='192' height='192' rx='32' fill='%23030303'/%3E%3Ctext x='96' y='110' font-size='80' text-anchor='middle' fill='%23fbbf24'%3E🧠%3C/text%3E%3C/svg%3E">
+    
+    <!-- FONTS -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="./styles.css">
@@ -19,32 +28,36 @@
     <div id="toastContainer"></div>
     <div id="modalContainer"></div>
 
+    <!-- SPLASH SCREEN -->
     <div class="splash" id="splash" onclick="forceHideSplash()">
-        <div class="splash-icon">🐄</div>
+        <div class="splash-icon">🧠</div>
         <div class="splash-title">GANADERO ÉLITE</div>
-        <div class="splash-sub">v3.2.2</div>
+        <div class="splash-sub">v3.2.3 · IA Nivel Máximo</div>
     </div>
 
+    <!-- APP PRINCIPAL -->
     <div class="app">
         <header>
             <h1><i class="fa-solid fa-crown"></i> GANADERO ÉLITE</h1>
-            <p class="subtitle">🥩 Engorde + 🥛 Leche</p>
+            <p class="subtitle">🥩 Engorde + 🥛 Leche · IA Dinámica</p>
         </header>
-        <div id="v-lote" class="page"></div>
+        <div id="v-lotes" class="page"></div>
+        <div id="v-animales" class="hidden page"></div>
         <div id="v-insumos" class="hidden page"></div>
-        <div id="v-sanidad" class="hidden page"></div>
         <div id="v-ajustes" class="hidden page"></div>
         <div id="v-perfil" class="hidden page"></div>
     </div>
 
+    <!-- MENÚ INFERIOR -->
     <nav class="bottom-nav" id="bottomNav">
-        <button class="bn-btn" data-p="ajustes"><i class="fa-solid fa-gear"></i><span>Ajustes</span></button>
-        <button class="bn-btn" data-p="sanidad"><i class="fa-solid fa-syringe"></i><span>Sanidad</span></button>
+        <button class="bn-btn active" data-p="lotes"><i class="fa-solid fa-layer-group"></i><span>Lotes</span></button>
+        <button class="bn-btn" data-p="animales"><i class="fa-solid fa-cow"></i><span>Animales</span></button>
         <button class="bn-btn-add" onclick="toggleAdd()"><i class="fa-solid fa-plus"></i></button>
         <button class="bn-btn" data-p="insumos"><i class="fa-solid fa-boxes"></i><span>Insumos</span></button>
-        <button class="bn-btn active" data-p="lote"><i class="fa-solid fa-chart-pie"></i><span>Lote</span></button>
+        <button class="bn-btn" data-p="ajustes"><i class="fa-solid fa-gear"></i><span>Ajustes</span></button>
     </nav>
 
+    <!-- MODAL AGREGAR ANIMAL -->
     <div class="modal-overlay hidden" id="addAnimalModal">
         <div class="modal">
             <div class="modal-title">🐄 NUEVO ANIMAL</div>
@@ -62,14 +75,71 @@
         </div>
     </div>
 
+    <!-- INPUT OCULTO PARA FOTOS -->
     <input type="file" id="fotoInput" accept="image/*" style="display:none" onchange="guardarFoto()">
 
+    <!-- ==================== SCRIPTS PWA MÁXIMO ==================== -->
     <script>
+    // 1. FORZAR OCULTAR SPLASH (3 métodos)
     function forceHideSplash() { var s = document.getElementById('splash'); if (s) { s.classList.add('hide'); setTimeout(function() { if (s.parentNode) s.style.display = 'none'; }, 500); } }
-    setTimeout(forceHideSplash, 1200);
-    document.addEventListener('DOMContentLoaded', function() { setTimeout(forceHideSplash, 600); });
-    window.addEventListener('load', function() { setTimeout(forceHideSplash, 400); });
+    setTimeout(forceHideSplash, 1000);
+    document.addEventListener('DOMContentLoaded', function() { setTimeout(forceHideSplash, 500); });
+    window.addEventListener('load', function() { setTimeout(forceHideSplash, 300); });
+
+    // 2. BEFORE INSTALL PROMPT (forzar instalación)
+    var deferredPrompt;
+    window.addEventListener('beforeinstallprompt', function(e) {
+        e.preventDefault();
+        deferredPrompt = e;
+        localStorage.setItem('pwa_installable', '1');
+    });
+    window.addEventListener('appinstalled', function() {
+        deferredPrompt = null;
+        localStorage.setItem('pwa_installed', '1');
+    });
+    function instalarApp() {
+        if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then(function(r) { if (r.outcome === 'accepted') { deferredPrompt = null; localStorage.setItem('pwa_installed', '1'); } }); }
+        else { alert('La app ya está instalada o no está disponible. Usa el menú del navegador.'); }
+    }
+
+    // 3. NOTIFICACIONES PUSH LOCALES
+    function notificarPush(titulo, cuerpo) {
+        if ('Notification' in window && Notification.permission === 'granted') {
+            new Notification(titulo, { body: cuerpo, icon: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32"%3E%3Ctext y="22" font-size="20"%3E🧠%3C/text%3E%3C/svg%3E', vibrate: [100,50,100], tag: 'ganadero' });
+        }
+    }
+    if ('Notification' in window && Notification.permission === 'default') {
+        setTimeout(function() { Notification.requestPermission(); }, 5000);
+    }
+
+    // 4. BADGE EN ICONO
+    function actualizarBadge(num) {
+        if ('setAppBadge' in navigator) {
+            if (num > 0) navigator.setAppBadge(num).catch(function(){});
+            else navigator.clearAppBadge().catch(function(){});
+        }
+    }
+
+    // 5. BACKGROUND SYNC
+    if ('serviceWorker' in navigator && 'SyncManager' in window) {
+        navigator.serviceWorker.ready.then(function(reg) {
+            reg.sync.register('sync-datos').catch(function(){});
+        });
+    }
+
+    // 6. WAKE LOCK (mantener pantalla encendida)
+    var wakeLock = null;
+    async function requestWakeLock() {
+        try { if ('wakeLock' in navigator) { wakeLock = await navigator.wakeLock.request('screen'); } } catch(e) {}
+    }
+    document.addEventListener('visibilitychange', function() { if (document.visibilityState === 'visible') requestWakeLock(); });
+    requestWakeLock();
+
+    // 7. DETECTAR SI ESTÁ INSTALADA
+    function estaInstalada() { return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone || localStorage.getItem('pwa_installed') === '1'; }
     </script>
+
+    <!-- APP PRINCIPAL -->
     <script src="./app.js"></script>
 </body>
 </html>
