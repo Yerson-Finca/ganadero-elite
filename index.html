@@ -3,44 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>GANADERO ÉLITE v3.2.3</title>
+    <title>GANADERO ÉLITE v4.0.0</title>
     
-    <!-- PWA METAS -->
+    <!-- Meta tags PWA -->
     <meta name="theme-color" content="#030303">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Ganadero Élite">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="description" content="Gestión inteligente de ganadería con IA - Engorde y Leche">
+    <meta name="description" content="Gestión inteligente de ganadería con IA Predictiva Total - 100% Offline">
     
-    <!-- MANIFEST -->
-    <link rel="manifest" href="./manifest.json">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23030303'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='%23fbbf24'%3E🧠%3C/text%3E%3C/svg%3E">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192'%3E%3Crect width='192' height='192' rx='32' fill='%23030303'/%3E%3Ctext x='96' y='110' font-size='80' text-anchor='middle' fill='%23fbbf24'%3E🧠%3C/text%3E%3C/svg%3E">
-    
-    <!-- FONTS -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Estilos -->
     <link rel="stylesheet" href="./styles.css">
+    
+    <!-- Manifest PWA -->
+    <link rel="manifest" href="./manifest.json">
+    
+    <!-- Favicon inline -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Crect width='32' height='32' rx='6' fill='%23030303'/%3E%3Ctext x='16' y='22' font-size='16' text-anchor='middle' fill='%23fbbf24'%3E🧠%3C/text%3E%3C/svg%3E">
 </head>
 <body>
+    <!-- Aurora de fondo -->
     <div class="aurora"></div>
+    
+    <!-- Contenedor de toasts (notificaciones flotantes) -->
     <div id="toastContainer"></div>
+    
+    <!-- Contenedor de modales -->
     <div id="modalContainer"></div>
 
-    <!-- SPLASH SCREEN -->
+    <!-- Splash screen -->
     <div class="splash" id="splash" onclick="forceHideSplash()">
         <div class="splash-icon">🧠</div>
         <div class="splash-title">GANADERO ÉLITE</div>
-        <div class="splash-sub">v3.2.3 · IA Nivel Máximo</div>
+        <div class="splash-sub">v4.0.0 · IA Predictiva Total</div>
     </div>
 
-    <!-- APP PRINCIPAL -->
+    <!-- App principal -->
     <div class="app">
+        <!-- Header -->
         <header>
-            <h1><i class="fa-solid fa-crown"></i> GANADERO ÉLITE</h1>
-            <p class="subtitle">🥩 Engorde + 🥛 Leche · IA Dinámica</p>
+            <h1>👑 GANADERO ÉLITE</h1>
+            <p class="subtitle">🥩 Engorde + 🥛 Leche · IA Predictiva Total</p>
         </header>
+        
+        <!-- Páginas de navegación -->
         <div id="v-lotes" class="page"></div>
         <div id="v-animales" class="hidden page"></div>
         <div id="v-insumos" class="hidden page"></div>
@@ -48,98 +55,198 @@
         <div id="v-perfil" class="hidden page"></div>
     </div>
 
-    <!-- MENÚ INFERIOR -->
+    <!-- Barra de navegación inferior -->
     <nav class="bottom-nav" id="bottomNav">
-        <button class="bn-btn active" data-p="lotes"><i class="fa-solid fa-layer-group"></i><span>Lotes</span></button>
-        <button class="bn-btn" data-p="animales"><i class="fa-solid fa-cow"></i><span>Animales</span></button>
-        <button class="bn-btn-add" onclick="toggleAdd()"><i class="fa-solid fa-plus"></i></button>
-        <button class="bn-btn" data-p="insumos"><i class="fa-solid fa-boxes"></i><span>Insumos</span></button>
-        <button class="bn-btn" data-p="ajustes"><i class="fa-solid fa-gear"></i><span>Ajustes</span></button>
+        <button class="bn-btn active" data-p="lotes">
+            <span class="nav-icon">📊</span>
+            <span>Lotes</span>
+        </button>
+        <button class="bn-btn" data-p="animales">
+            <span class="nav-icon">🐄</span>
+            <span>Animales</span>
+        </button>
+        <button class="bn-btn-add" onclick="toggleAdd()" aria-label="Agregar animal">
+            <span class="nav-icon">➕</span>
+        </button>
+        <button class="bn-btn" data-p="insumos">
+            <span class="nav-icon">📦</span>
+            <span>Insumos</span>
+        </button>
+        <button class="bn-btn" data-p="ajustes">
+            <span class="nav-icon">⚙️</span>
+            <span>Ajustes</span>
+        </button>
     </nav>
 
-    <!-- MODAL AGREGAR ANIMAL -->
+    <!-- Modal para agregar animal -->
     <div class="modal-overlay hidden" id="addAnimalModal">
         <div class="modal">
             <div class="modal-title">🐄 NUEVO ANIMAL</div>
             <div class="flex-col gap10">
                 <input id="newN" type="text" placeholder="Nombre del Animal">
                 <input id="newW" type="number" placeholder="Peso Inicial (kg)" min="20" max="2000">
-                <select id="newTipo"><option value="engorde">🥩 Engorde (Carne)</option><option value="leche">🥛 Leche</option></select>
-                <select id="newOrigen" onchange="toggleOrigen()"><option value="nacimiento">🐮 Nació en la finca</option><option value="comprado">💰 Comprado</option></select>
-                <div id="origenNacimiento"><input id="newMadre" type="text" placeholder="Nombre de la madre (opcional)"></div>
-                <div id="origenComprado" class="hidden"><input id="newPrecio" type="number" placeholder="Precio de compra ($)"></div>
-                <select id="newLote"><option value="">Sin lote (por defecto)</option></select>
-                <button class="btn btn-gold" onclick="addAnimal()"><i class="fa-solid fa-check-circle"></i> GUARDAR</button>
+                <select id="newTipo">
+                    <option value="engorde">🥩 Engorde (Carne)</option>
+                    <option value="leche">🥛 Leche</option>
+                </select>
+                <select id="newOrigen" onchange="toggleOrigen()">
+                    <option value="nacimiento">🐮 Nació en la finca</option>
+                    <option value="comprado">💰 Comprado</option>
+                </select>
+                <div id="origenNacimiento">
+                    <input id="newMadre" type="text" placeholder="Nombre de la madre (opcional)">
+                </div>
+                <div id="origenComprado" class="hidden">
+                    <input id="newPrecio" type="number" placeholder="Precio de compra ($)">
+                </div>
+                <select id="newLote">
+                    <option value="">Sin lote (por defecto)</option>
+                </select>
+                <button class="btn btn-gold" onclick="addAnimal()">✅ GUARDAR</button>
                 <button class="btn btn-gray" onclick="closeAddModal()">CANCELAR</button>
             </div>
         </div>
     </div>
 
-    <!-- INPUT OCULTO PARA FOTOS -->
+    <!-- Input oculto para fotos -->
     <input type="file" id="fotoInput" accept="image/*" style="display:none" onchange="guardarFoto()">
 
-    <!-- ==================== SCRIPTS PWA MÁXIMO ==================== -->
-    <script>
-    // 1. FORZAR OCULTAR SPLASH (3 métodos)
-    function forceHideSplash() { var s = document.getElementById('splash'); if (s) { s.classList.add('hide'); setTimeout(function() { if (s.parentNode) s.style.display = 'none'; }, 500); } }
-    setTimeout(forceHideSplash, 1000);
-    document.addEventListener('DOMContentLoaded', function() { setTimeout(forceHideSplash, 500); });
-    window.addEventListener('load', function() { setTimeout(forceHideSplash, 300); });
-
-    // 2. BEFORE INSTALL PROMPT (forzar instalación)
-    var deferredPrompt;
-    window.addEventListener('beforeinstallprompt', function(e) {
-        e.preventDefault();
-        deferredPrompt = e;
-        localStorage.setItem('pwa_installable', '1');
-    });
-    window.addEventListener('appinstalled', function() {
-        deferredPrompt = null;
-        localStorage.setItem('pwa_installed', '1');
-    });
-    function instalarApp() {
-        if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then(function(r) { if (r.outcome === 'accepted') { deferredPrompt = null; localStorage.setItem('pwa_installed', '1'); } }); }
-        else { alert('La app ya está instalada o no está disponible. Usa el menú del navegador.'); }
-    }
-
-    // 3. NOTIFICACIONES PUSH LOCALES
-    function notificarPush(titulo, cuerpo) {
-        if ('Notification' in window && Notification.permission === 'granted') {
-            new Notification(titulo, { body: cuerpo, icon: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32"%3E%3Ctext y="22" font-size="20"%3E🧠%3C/text%3E%3C/svg%3E', vibrate: [100,50,100], tag: 'ganadero' });
-        }
-    }
-    if ('Notification' in window && Notification.permission === 'default') {
-        setTimeout(function() { Notification.requestPermission(); }, 5000);
-    }
-
-    // 4. BADGE EN ICONO
-    function actualizarBadge(num) {
-        if ('setAppBadge' in navigator) {
-            if (num > 0) navigator.setAppBadge(num).catch(function(){});
-            else navigator.clearAppBadge().catch(function(){});
-        }
-    }
-
-    // 5. BACKGROUND SYNC
-    if ('serviceWorker' in navigator && 'SyncManager' in window) {
-        navigator.serviceWorker.ready.then(function(reg) {
-            reg.sync.register('sync-datos').catch(function(){});
-        });
-    }
-
-    // 6. WAKE LOCK (mantener pantalla encendida)
-    var wakeLock = null;
-    async function requestWakeLock() {
-        try { if ('wakeLock' in navigator) { wakeLock = await navigator.wakeLock.request('screen'); } } catch(e) {}
-    }
-    document.addEventListener('visibilitychange', function() { if (document.visibilityState === 'visible') requestWakeLock(); });
-    requestWakeLock();
-
-    // 7. DETECTAR SI ESTÁ INSTALADA
-    function estaInstalada() { return window.matchMedia('(display-mode: standalone)').matches || navigator.standalone || localStorage.getItem('pwa_installed') === '1'; }
-    </script>
-
-    <!-- APP PRINCIPAL -->
+    <!-- SCRIPTS -->
+    <!-- Lógica principal de la aplicación con IA Avanzada -->
     <script src="./app.js"></script>
+    
+    <!-- Inicialización PWA y Service Worker -->
+    <script>
+        // ==================== SPLASH SCREEN ====================
+        function forceHideSplash() {
+            var s = document.getElementById('splash');
+            if (s) {
+                s.classList.add('hide');
+                setTimeout(function() {
+                    if (s.parentNode) s.style.display = 'none';
+                }, 500);
+            }
+        }
+        
+        // Auto-ocultar splash después de 1 segundo
+        setTimeout(forceHideSplash, 1000);
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(forceHideSplash, 500);
+        });
+        window.addEventListener('load', function() {
+            setTimeout(forceHideSplash, 300);
+        });
+
+        // ==================== PWA - INSTALACIÓN ====================
+        var deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', function(e) {
+            // Prevenir que el navegador muestre el diálogo automáticamente
+            e.preventDefault();
+            // Guardar el evento para usarlo después
+            deferredPrompt = e;
+            // Marcar que la app es instalable
+            localStorage.setItem('pwa_installable', '1');
+            console.log('📲 PWA: Instalable');
+        });
+        
+        window.addEventListener('appinstalled', function() {
+            deferredPrompt = null;
+            localStorage.setItem('pwa_installed', '1');
+            console.log('✅ PWA: Instalada correctamente');
+            showToast('✅ App instalada correctamente');
+        });
+
+        // Función global para instalar la PWA (llamada desde Ajustes)
+        function instalarApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(function(result) {
+                    if (result.outcome === 'accepted') {
+                        console.log('✅ Usuario aceptó instalar');
+                        deferredPrompt = null;
+                        localStorage.setItem('pwa_installed', '1');
+                    } else {
+                        console.log('❌ Usuario rechazó instalar');
+                    }
+                });
+            } else {
+                showToast('📱 La app ya está instalada o no está disponible en este momento.');
+            }
+        }
+
+        // ==================== NOTIFICACIONES ====================
+        if ('Notification' in window && Notification.permission === 'default') {
+            setTimeout(function() {
+                Notification.requestPermission().then(function(permission) {
+                    if (permission === 'granted') {
+                        console.log('🔔 Notificaciones permitidas');
+                    }
+                });
+            }, 5000);
+        }
+
+        // ==================== SERVICE WORKER ====================
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('./sw-v2.js')
+                    .then(function(registration) {
+                        console.log('✅ Service Worker registrado con éxito:', registration.scope);
+                        
+                        // Verificar actualizaciones del SW
+                        registration.addEventListener('updatefound', function() {
+                            var newWorker = registration.installing;
+                            console.log('🔄 Nuevo Service Worker encontrado');
+                            
+                            newWorker.addEventListener('statechange', function() {
+                                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                    console.log('🆕 Nueva versión disponible');
+                                    showToast('🔄 Nueva versión disponible. Recarga la app para actualizar.');
+                                }
+                            });
+                        });
+                    })
+                    .catch(function(error) {
+                        console.error('❌ Error al registrar Service Worker:', error);
+                    });
+            });
+            
+            // Manejar mensajes del Service Worker
+            navigator.serviceWorker.addEventListener('message', function(event) {
+                if (event.data && event.data.type === 'UPDATE_AVAILABLE') {
+                    showToast('🔄 Actualización disponible. Recarga la app.');
+                }
+            });
+        } else {
+            console.warn('⚠️ Service Worker no soportado en este navegador');
+        }
+
+        // ==================== DETECCIÓN DE CONEXIÓN ====================
+        window.addEventListener('online', function() {
+            console.log('🌐 Conexión restaurada');
+            document.body.classList.remove('offline');
+        });
+        
+        window.addEventListener('offline', function() {
+            console.log('📡 Sin conexión - Modo offline');
+            document.body.classList.add('offline');
+            showToast('📡 Modo sin conexión - Todos los datos se guardan localmente');
+        });
+
+        // ==================== ATRIBUTO DATA PARA ANIMAL EN FOTO ====================
+        // Esto asegura que el input de foto funcione correctamente
+        document.addEventListener('DOMContentLoaded', function() {
+            var fotoInput = document.getElementById('fotoInput');
+            if (fotoInput) {
+                fotoInput.addEventListener('click', function(e) {
+                    // Limpiar el valor para permitir seleccionar la misma foto
+                    this.value = null;
+                });
+            }
+        });
+
+        console.log('🚀 GANADERO ÉLITE v4.0.0 - IA Predictiva Total inicializado');
+        console.log('🧠 Capacidades: Predicción | Comparativa | Alertas | Sugerencias | Simulador | Ranking');
+    </script>
 </body>
 </html>
