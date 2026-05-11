@@ -1,10 +1,4 @@
-/* 
-   📂 ganadero-elite/styles.css
-   GANADERO ÉLITE v4.0.0 - IA Predictiva Total
-   Estilos mejorados para el nuevo motor de IA
-*/
-
-/* ==================== VARIABLES ==================== */
+/* 📂 ganadero-elite/styles.css - v4.0.1 - CORREGIDO */
 :root {
     --bg: #030303;
     --card: rgba(18, 18, 18, 0.85);
@@ -19,17 +13,8 @@
     --info: #3b82f6;
     --warning: #f59e0b;
     --purple: #a78bfa;
-    --ia-glow: rgba(167, 139, 250, 0.5);
-    
-    /* Nuevas variables para IA */
-    --ia-card-bg: rgba(167, 139, 250, 0.05);
-    --ia-card-border: rgba(167, 139, 250, 0.25);
-    --critico-bg: rgba(239, 68, 68, 0.05);
-    --excelente-bg: rgba(34, 197, 94, 0.05);
-    --warning-bg: rgba(251, 191, 36, 0.05);
 }
 
-/* ==================== RESET Y BASE ==================== */
 * {
     margin: 0;
     padding: 0;
@@ -56,40 +41,22 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* Indicador offline */
-body.offline::before {
-    content: '📡 OFFLINE';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: var(--warning);
-    color: #000;
-    text-align: center;
-    padding: 4px;
-    font-size: 0.65rem;
-    font-weight: 700;
-    z-index: 9999;
-    letter-spacing: 1px;
-}
-
-/* ==================== AURORA BACKGROUND ==================== */
+/* Aurora background - SIN ANIMACIÓN */
 .aurora {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
-        radial-gradient(circle at 20% 30%, #1e1b13 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, #1a1608 0%, transparent 40%);
+    background: radial-gradient(circle at 20% 30%, #1e1b13 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, #1a1608 0%, transparent 40%);
     z-index: -1;
     filter: blur(80px);
     opacity: 0.6;
     pointer-events: none;
 }
 
-/* ==================== CONTENEDOR PRINCIPAL ==================== */
+/* App */
 .app {
     width: 100%;
     max-width: 480px;
@@ -105,7 +72,7 @@ body.offline::before {
     min-height: calc(100vh - 114px);
 }
 
-/* ==================== ANIMACIONES ==================== */
+/* Animaciones - Solo para transiciones necesarias, SIN PARPADEOS */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
@@ -121,34 +88,12 @@ body.offline::before {
     to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulseBar {
-    0% { opacity: 0.6; }
-    50% { opacity: 1; }
-    100% { opacity: 0.6; }
-}
-
-@keyframes glowIA {
-    0% { box-shadow: 0 0 10px var(--ia-glow); }
-    50% { box-shadow: 0 0 30px var(--ia-glow), 0 0 60px var(--ia-glow); }
-    100% { box-shadow: 0 0 10px var(--ia-glow); }
-}
-
-@keyframes pulseCritico {
-    0%, 100% { border-color: rgba(239, 68, 68, 0.3); }
-    50% { border-color: rgba(239, 68, 68, 0.7); }
-}
-
-@keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-}
-
 .page {
     animation: slideIn 0.3s ease;
     flex: 1;
 }
 
-/* ==================== SPLASH SCREEN ==================== */
+/* Splash */
 .splash {
     position: fixed;
     top: 0;
@@ -172,7 +117,6 @@ body.offline::before {
 
 .splash-icon {
     font-size: 4rem;
-    animation: pulseBar 2s infinite;
 }
 
 .splash-title {
@@ -188,7 +132,7 @@ body.offline::before {
     margin-top: 4px;
 }
 
-/* ==================== HEADER ==================== */
+/* Header */
 header {
     text-align: center;
     padding: 12px 0 8px;
@@ -214,7 +158,7 @@ header .subtitle {
     margin-top: 2px;
 }
 
-/* ==================== CARDS ==================== */
+/* Cards - SIN GLOW */
 .card {
     background: var(--card);
     backdrop-filter: blur(20px);
@@ -224,7 +168,7 @@ header .subtitle {
     padding: 18px 20px;
     margin-bottom: 14px;
     color: var(--text);
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .card:last-child {
@@ -236,15 +180,13 @@ header .subtitle {
     border-radius: 16px;
 }
 
-/* Card de IA con glow */
-.card-ia,
+/* IA Card - SIN ANIMACIÓN DE GLOW */
 .ia-card {
-    background: var(--ia-card-bg);
-    border: 1px solid var(--ia-card-border);
+    background: rgba(167, 139, 250, 0.05);
+    border: 1px solid rgba(167, 139, 250, 0.25);
     border-radius: 16px;
     padding: 16px;
     margin-bottom: 14px;
-    animation: glowIA 3s infinite;
 }
 
 .ia-card .ia-title {
@@ -257,13 +199,7 @@ header .subtitle {
     gap: 6px;
 }
 
-/* Card con alerta crítica */
-.card-critico {
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    animation: pulseCritico 2s infinite;
-}
-
-/* ==================== FORMULARIOS ==================== */
+/* Formularios */
 input[type="number"],
 input[type="text"],
 select {
@@ -277,7 +213,7 @@ select {
     font-size: 15px;
     font-weight: 500;
     outline: none;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     margin: 2px 0;
 }
 
@@ -302,7 +238,7 @@ select:focus {
     background: rgba(255, 255, 255, 0.07);
 }
 
-/* ==================== BOTONES ==================== */
+/* Botones */
 .btn {
     width: 100%;
     padding: 15px 18px;
@@ -315,7 +251,7 @@ select:focus {
     align-items: center;
     justify-content: center;
     gap: 9px;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     margin-bottom: 10px;
     color: var(--text);
     text-decoration: none;
@@ -334,7 +270,7 @@ select:focus {
 .btn-gold {
     background: var(--accent-grad);
     color: #000;
-    box-shadow: 0 8px 28px var(--accent-glow);
+    box-shadow: 0 6px 20px var(--accent-glow);
 }
 
 .btn-gray {
@@ -360,12 +296,6 @@ select:focus {
     border: 1px solid rgba(239, 68, 68, 0.25);
 }
 
-.btn-ia {
-    background: rgba(167, 139, 250, 0.15);
-    color: #a78bfa;
-    border: 1px solid rgba(167, 139, 250, 0.3);
-}
-
 .btn-sm {
     width: auto;
     padding: 8px 14px;
@@ -374,7 +304,7 @@ select:focus {
     white-space: nowrap;
 }
 
-/* ==================== FILAS Y GRIDS ==================== */
+/* Filas y grids */
 .row {
     display: flex;
     justify-content: space-between;
@@ -422,7 +352,7 @@ select:focus {
     border: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-/* ==================== PROGRESO ==================== */
+/* Progreso - SIN ANIMACIÓN */
 .progress {
     width: 100%;
     height: 6px;
@@ -435,7 +365,7 @@ select:focus {
 .progress-fill {
     height: 100%;
     border-radius: 4px;
-    transition: width 0.8s ease;
+    transition: width 0.5s ease;
 }
 
 .progress-lote {
@@ -450,11 +380,10 @@ select:focus {
     height: 100%;
     border-radius: 4px;
     background: var(--accent-grad);
-    transition: width 1s ease;
-    animation: pulseBar 3s infinite;
+    transition: width 0.5s ease;
 }
 
-/* ==================== ALERTAS ==================== */
+/* Alertas */
 .alert-item {
     display: flex;
     align-items: flex-start;
@@ -484,7 +413,7 @@ select:focus {
     border-left: 3px solid #a78bfa;
 }
 
-/* ==================== GRID DE ANIMALES ==================== */
+/* Grid de animales */
 .grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -500,12 +429,12 @@ select:focus {
     text-align: center;
     cursor: pointer;
     position: relative;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .animal-card:active {
     background: rgba(251, 191, 36, 0.06);
-    transform: translateY(-4px);
+    transform: translateY(-2px);
 }
 
 .animal-card.etapa-inicio-card { border-left-color: #fbbf24; }
@@ -533,7 +462,7 @@ select:focus {
     margin-top: 2px;
 }
 
-/* ==================== AVATAR ANIMAL ==================== */
+/* Avatar animal */
 .animal-avatar {
     width: 44px;
     height: 44px;
@@ -554,7 +483,7 @@ select:focus {
     object-fit: cover;
 }
 
-/* ==================== ETIQUETAS DE ETAPA ==================== */
+/* Etiquetas de etapa */
 .etapa-tag {
     display: inline-block;
     padding: 2px 8px;
@@ -569,7 +498,7 @@ select:focus {
 .etapa-ceba { background: rgba(245, 158, 11, 0.15); color: #fb923c; }
 .etapa-madurez { background: rgba(239, 68, 68, 0.15); color: #f87171; }
 
-/* ==================== MINI LED ==================== */
+/* Mini LED - INDICADOR ESTÁTICO, SIN PARPADEO */
 .mini-led {
     position: absolute;
     top: 10px;
@@ -579,13 +508,13 @@ select:focus {
     border-radius: 50%;
 }
 
-.ml-g { background: #22c55e; box-shadow: 0 0 6px #22c55e; }
-.ml-b { background: #3b82f6; box-shadow: 0 0 6px #3b82f6; }
-.ml-o { background: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
-.ml-r { background: #ef4444; box-shadow: 0 0 6px #ef4444; }
+.ml-g { background: #22c55e; }
+.ml-b { background: #3b82f6; }
+.ml-o { background: #f59e0b; }
+.ml-r { background: #ef4444; }
 .ml-x { background: #6b7280; }
 
-/* ==================== TÍTULOS DE SECCIÓN ==================== */
+/* Títulos de sección */
 .section-title {
     display: flex;
     align-items: center;
@@ -600,7 +529,7 @@ select:focus {
     border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
-/* ==================== ALERTA CARD (PERFIL) ==================== */
+/* Alerta card (perfil) */
 .alerta-card {
     display: flex;
     align-items: center;
@@ -644,7 +573,7 @@ select:focus {
     margin-top: 3px;
 }
 
-/* ==================== HISTORIAL ==================== */
+/* Historial */
 .hist-item {
     display: flex;
     justify-content: space-between;
@@ -661,7 +590,7 @@ select:focus {
     margin-bottom: 0;
 }
 
-/* ==================== BADGES ==================== */
+/* Badges */
 .badge {
     font-size: 0.65rem;
     font-weight: 600;
@@ -672,7 +601,7 @@ select:focus {
 .badge-up { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
 .badge-down { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
 
-/* ==================== PERFIL ==================== */
+/* Perfil */
 .profile-cover {
     text-align: center;
     padding: 20px 0 14px;
@@ -755,7 +684,7 @@ select:focus {
     color: var(--muted);
 }
 
-/* ==================== SEMÁFORO REPRODUCTIVO ==================== */
+/* Semáforo */
 .semaforo {
     display: inline-block;
     width: 16px;
@@ -769,7 +698,7 @@ select:focus {
 .semaforo-amarillo { background: #f59e0b; }
 .semaforo-rojo { background: #ef4444; }
 
-/* ==================== PROYECCIÓN ==================== */
+/* Proyección */
 .proyeccion-item {
     background: rgba(255, 255, 255, 0.02);
     padding: 10px 6px;
@@ -794,7 +723,7 @@ select:focus {
     margin-top: 2px;
 }
 
-/* ==================== IA SUGERENCIAS ==================== */
+/* IA Sugerencias */
 .ia-sugerencia {
     font-size: 0.68rem;
     color: var(--muted);
@@ -814,7 +743,7 @@ select:focus {
     flex-shrink: 0;
 }
 
-/* ==================== RANKING ==================== */
+/* Ranking */
 .ranking-item {
     display: flex;
     align-items: center;
@@ -824,7 +753,7 @@ select:focus {
     cursor: pointer;
 }
 
-/* ==================== LOTE CARD ==================== */
+/* Lote card */
 .lote-card {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.08);
@@ -832,7 +761,7 @@ select:focus {
     padding: 16px;
     margin-bottom: 10px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
 }
 
 .lote-card:active {
@@ -873,7 +802,7 @@ select:focus {
     color: var(--muted);
 }
 
-/* ==================== APLICACIONES ==================== */
+/* Aplicaciones */
 .aplicacion-item {
     background: rgba(255, 255, 255, 0.02);
     padding: 8px 12px;
@@ -890,7 +819,7 @@ select:focus {
     margin-bottom: 0;
 }
 
-/* ==================== INSUMOS ==================== */
+/* Insumos */
 .insumo-row {
     display: flex;
     align-items: center;
@@ -939,7 +868,7 @@ select:focus {
     min-height: 32px;
 }
 
-/* ==================== SUPLEMENTOS ==================== */
+/* Suplementos */
 .sup-card {
     background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.06);
@@ -993,7 +922,7 @@ select:focus {
     border-radius: 5px;
 }
 
-/* ==================== CONFIGURACIÓN ==================== */
+/* Configuración */
 .config-section {
     background: rgba(255, 255, 255, 0.02);
     padding: 12px;
@@ -1016,7 +945,8 @@ select:focus {
     gap: 6px;
 }
 
-/* ==================== BOTTOM NAV ==================== */
+/* ==================== 🆕 MENÚ REORGANIZADO ==================== */
+/* Nuevo orden: Config | Insumos | [+] | Lotes | Animales */
 .bottom-nav {
     position: fixed;
     bottom: 16px;
@@ -1051,7 +981,7 @@ select:focus {
     font-weight: 500;
     cursor: pointer;
     border-radius: 14px;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     min-width: 50px;
 }
 
@@ -1077,7 +1007,7 @@ select:focus {
     justify-content: center;
     margin: -10px 4px 0 4px;
     box-shadow: 0 6px 20px var(--accent-glow);
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     flex-shrink: 0;
     font-family: inherit;
 }
@@ -1086,7 +1016,7 @@ select:focus {
     transform: scale(0.9);
 }
 
-/* ==================== MODAL ==================== */
+/* Modal */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -1120,7 +1050,7 @@ select:focus {
     color: var(--accent);
 }
 
-/* ==================== TOAST ==================== */
+/* Toast */
 .toast {
     position: fixed;
     top: 20px;
@@ -1140,7 +1070,7 @@ select:focus {
     max-width: 90%;
 }
 
-/* ==================== UTILIDADES ==================== */
+/* Utilidades */
 .hidden {
     display: none !important;
 }
@@ -1156,7 +1086,7 @@ select:focus {
 .mt12 { margin-top: 12px; }
 .mt20 { margin-top: 20px; }
 
-/* ==================== SCROLLBAR ==================== */
+/* Scrollbar */
 ::-webkit-scrollbar {
     width: 4px;
 }
@@ -1170,7 +1100,7 @@ select:focus {
     border-radius: 2px;
 }
 
-/* ==================== RESPONSIVE ==================== */
+/* Responsive */
 @media (max-width: 360px) {
     body {
         padding: 8px 8px 100px;
@@ -1195,14 +1125,5 @@ select:focus {
     .app {
         border: 1px solid var(--border);
         margin-top: 20px;
-    }
-}
-
-/* ==================== MODO OSCURO FORZADO ==================== */
-@media (prefers-color-scheme: light) {
-    :root {
-        --bg: #030303;
-        --card: rgba(18, 18, 18, 0.85);
-        --text: #f8f9fa;
     }
 }
