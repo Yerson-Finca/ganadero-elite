@@ -218,8 +218,8 @@
   }
 
   .bottom-nav {
-    @apply fixed bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-0 bg-card border border-border rounded-2xl px-2.5 py-1.5 z-[100] shadow-card;
-  }
+  @apply fixed bottom-4 left-1/2 -translate-x-1/2 flex items-center justify-center gap-0 bg-card border border-border rounded-2xl px-2 py-1.5 z-[100] shadow-card;
+}
 
   .bn-btn {
     @apply flex flex-col items-center justify-center gap-0.5 px-3 py-2 border-none bg-transparent text-text-muted text-[0.55rem] font-medium cursor-pointer rounded-xl transition-all duration-150 min-w-[48px];
@@ -230,8 +230,9 @@
   }
 
   .bn-btn-add {
-    @apply w-[50px] h-[50px] rounded-full bg-accent text-bg text-xl cursor-pointer flex items-center justify-center mx-1.5 -mt-2.5 shadow-accent transition-all duration-150 active:scale-90 border-2 border-accent;
-  }
+  @apply w-[50px] h-[50px] rounded-full bg-accent text-bg text-xl cursor-pointer flex items-center justify-center mx-2 -mt-3 shadow-accent transition-all duration-150 active:scale-90 border-2 border-accent;
+  flex-shrink: 0;
+}
 
   .profile-avatar {
     @apply w-20 h-20 rounded-full bg-bg flex items-center justify-center text-4xl mx-auto mb-2 border-[3px] border-accent overflow-hidden cursor-pointer relative;
