@@ -3,82 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>GANADERO ÉLITE v5.2</title>
-    <meta name="theme-color" content="#0D0D0D">
+    <title>GANADERO ÉLITE v6.0</title>
+    <meta name="theme-color" content="#080808">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Ganadero Élite">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="description" content="Gestión inteligente de ganadería con IA Predictiva Total - 100% Offline">
-    
-    <link rel="stylesheet" href="./styles.css">
+    <meta name="description" content="Gestión inteligente de ganadería - IA Predictiva Total">
     <link rel="manifest" href="./manifest.json">
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Crect width='32' height='32' rx='6' fill='%230D0D0D'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='%23D4A853'%3E👑%3C/text%3E%3C/svg%3E">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Crect width='32' height='32' rx='6' fill='%23080808'/%3E%3Ctext x='16' y='23' font-size='18' text-anchor='middle' fill='%23F5C842'%3E👑%3C/text%3E%3C/svg%3E">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="aurora"></div>
-    <div id="toastContainer"></div>
-    <div id="modalContainer"></div>
-
-    <div class="splash" id="splash" onclick="forceHideSplash()">
-        <div class="splash-icon">👑</div>
-        <div class="splash-title">GANADERO ÉLITE</div>
-        <div class="splash-sub">v5.2 · Dark Industrial</div>
-    </div>
-
-    <div class="app">
-        <header>
-            <h1>👑 GANADERO ÉLITE</h1>
-            <p class="subtitle">🥩 Engorde + 🥛 Leche · IA Predictiva</p>
-        </header>
-        
-        <div id="v-lote" class="page"></div>
-        <div id="v-animales" class="hidden page"></div>
-        <div id="v-insumos" class="hidden page"></div>
-        <div id="v-ajustes" class="hidden page"></div>
-        <div id="v-perfil" class="hidden page"></div>
-    </div>
-
-    <nav class="bottom-nav" id="bottomNav">
-        <button class="bn-btn" data-p="ajustes"><span class="nav-icon">⚙️</span><span>Ajustes</span></button>
-        <button class="bn-btn" data-p="insumos"><span class="nav-icon">📦</span><span>Insumos</span></button>
-        <button class="bn-btn-add" onclick="toggleAdd()" aria-label="Agregar animal"><span class="nav-icon">+</span></button>
-        <button class="bn-btn active" data-p="lote"><span class="nav-icon">📊</span><span>Lotes</span></button>
-        <button class="bn-btn" data-p="animales"><span class="nav-icon">🐄</span><span>Animales</span></button>
-    </nav>
-
-    <div class="modal-overlay hidden" id="addAnimalModal">
-        <div class="modal">
-            <div class="modal-title">🐄 NUEVO ANIMAL</div>
-            <div class="flex-col gap10">
-                <input id="newN" type="text" placeholder="Nombre del Animal" autocomplete="off">
-                <input id="newW" type="number" placeholder="Peso Inicial (kg)" min="20" max="2000" inputmode="decimal">
-                <select id="newTipo"><option value="engorde">🥩 Engorde (Carne)</option><option value="leche">🥛 Leche</option></select>
-                <select id="newOrigen" onchange="toggleOrigen()"><option value="nacimiento">🐮 Nació en la finca</option><option value="comprado">💰 Comprado</option></select>
-                <div id="origenNacimiento"><input id="newMadre" type="text" placeholder="Nombre de la madre (opcional)"></div>
-                <div id="origenComprado" class="hidden"><input id="newPrecio" type="number" placeholder="Precio de compra ($)" inputmode="decimal"></div>
-                <select id="newLote"><option value="">Sin lote (por defecto)</option></select>
-                <button class="btn btn-green" onclick="addAnimal()">✅ GUARDAR</button>
-                <button class="btn btn-gray" onclick="closeAddModal()">CANCELAR</button>
-            </div>
-        </div>
-    </div>
-
-    <input type="file" id="fotoInput" accept="image/*" style="display:none" onchange="guardarFoto()">
-
-    <script src="./app.js"></script>
-    <script>
-        function forceHideSplash() { var s = document.getElementById('splash'); if (s) { s.classList.add('hide'); setTimeout(function() { if (s.parentNode) s.style.display = 'none'; }, 500); } }
-        setTimeout(forceHideSplash, 800);
-        document.addEventListener('DOMContentLoaded', function() { setTimeout(forceHideSplash, 400); });
-        window.addEventListener('load', function() { setTimeout(forceHideSplash, 200); });
-
-        var deferredPrompt;
-        window.addEventListener('beforeinstallprompt', function(e) { e.preventDefault(); deferredPrompt = e; });
-        window.addEventListener('appinstalled', function() { deferredPrompt = null; });
-        function instalarApp() { if (deferredPrompt) { deferredPrompt.prompt(); deferredPrompt.userChoice.then(function(r) { if (r.outcome === 'accepted') deferredPrompt = null; }); } else { showToast('📱 App ya instalada'); } }
-
-        if ('serviceWorker' in navigator) { navigator.serviceWorker.register('./sw-v2.js').then(function(r) { console.log('✅ SW Cache Agresiva'); }).catch(function(e) {}); }
-    </script>
+<body class="bg-bg text-text-primary font-sans antialiased">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
