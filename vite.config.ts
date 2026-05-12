@@ -13,3 +13,8 @@ export default defineConfig({
     }
   }
 })
+export default defineConfig({
+  base: '/ganadero-elite/',  // ← El nombre de tu repositorio
+  // ... el resto igual
+})
+
