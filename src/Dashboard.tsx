@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { db } from './db'
 import {
-  Animal, fm, getGMD, getRendimiento, getEtapaCompleta, getSemaforo,
+  Animal, fm, getGMD, getRendimiento, getEtapaCompleta,
   getEficiencia, predecirPeso
 } from './calculos'
 import Icono from './iconos'
