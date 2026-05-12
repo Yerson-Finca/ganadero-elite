@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { db } from './db'
-import { Animal } from './calculos'
+import { Animal } from './db'
 import Icono from './iconos'
 
 interface Props {
