@@ -7,23 +7,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: '#0B0B0F',
-        card: '#1A1A2E',
-        border: '#2A2A3E',
-        accent: '#00D4AA',
-        'accent-glow': 'rgba(0, 212, 170, 0.15)',
-        success: '#00D4AA',
-        danger: '#FF4757',
-        warning: '#F59E0B',
-        info: '#60A5FA',
-        ia: '#8B5CF6',
-        'ia-glow': 'rgba(139, 92, 246, 0.15)',
-        text: {
-          primary: '#FFFFFF',
-          secondary: '#8B8B9E',
-          muted: '#5C5C7A',
-        }
-      },
+  bg: '#000000',
+  card: '#0F0F0F',
+  border: '#1A1A1A',
+  accent: '#4FD1C5',
+  'accent-glow': 'rgba(79, 209, 197, 0.15)',
+  success: '#4FD1C5',
+  danger: '#FF6B6B',
+  warning: '#F59E0B',
+  info: '#60A5FA',
+  ia: '#7C3AED',
+  'ia-glow': 'rgba(124, 58, 237, 0.15)',
+  text: {
+    primary: '#FFFFFF',
+    secondary: '#A0AEC0',
+    muted: '#4A5568',
+  }
+},
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif']
       },
