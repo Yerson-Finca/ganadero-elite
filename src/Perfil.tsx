@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { db } from './db'
 import {
-  Animal, fm, getGMD, getDietaCompleta, getCostoDiario, getRendimento,
+  Animal, fm, getGMD, getDietaCompleta, getCostoDiario, getRendimiento,
   predecirPeso, getConfianzaPrediccion, getTendenciaTexto, getEtapaCompleta,
   getSemaforo, getDiasDesde, getProgresoEtapa, detectarAnomalia, CATALOGO_SANIDAD
 } from './calculos'
