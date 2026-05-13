@@ -361,19 +361,20 @@ const Perfil: React.FC<Props> = ({ animalId, precioKG, litroLeche, preciosAlimen
       )}
 
       {/* DIETA DIARIA */}
-      <div className="card-sm mb-3">
-        <div className="font-bold text-xs text-text-primary mb-2">🧪 DIETA DIARIA</div>
-        <div className="row"><span className="row-label">🌱 Pasto</span><span className="row-val">{(dieta.pasto || 0).toFixed(1)} kg</span></div>
-        <div className="row"><span className="row-label">🌾 Salvado</span><span className="row-val">{(dieta.salvado || 0).toFixed(2)} kg</span></div>
-        <div className="row"><span className="row-label">💧 Melaza</span><span className="row-val">{Math.round(dieta.melaza || 0)} g</span></div>
-        <div className="row">
-          <span className="row-label">⚗️ UREA</span>
-          <span className="row-val" style={etapa.ureaBloqueada ? { color: '#6B6058', textDecoration: 'line-through' } : {}}>
-            {etapa.ureaBloqueada ? '0 g (🔒)' : Math.round(dieta.urea || 0) + ' g'}
-          </span>
-        </div>
-        <div className="row"><span className="row-label">🧂 Sal Mineral</span><span className="row-val">{Math.round(dieta.sal || 0)} g</span></div>
-      </div>
+     <div className="card-sm mb-3">
+  <div className="font-bold text-xs text-white mb-2">🧪 DIETA DIARIA</div>
+  <div className="row"><span className="row-label">🌱 Pasto Picado</span><span className="row-val">{dieta.pasto.toFixed(1)} kg</span></div>
+  <div className="row"><span className="row-label">🌾 Salvado Trigo</span><span className="row-val">{dieta.salvado.toFixed(2)} kg</span></div>
+  <div className="row"><span className="row-label">💧 Melaza</span><span className="row-val">{Math.round(dieta.melaza)} g</span></div>
+  <div className="row"><span className="row-label">⚗️ UREA</span><span className="row-val">{Math.round(dieta.urea)} g {etapa.ureaBloqueada ? '🔒' : ''}</span></div>
+  <div className="row"><span className="row-label">🧊 Bicarbonato</span><span className="row-val">{Math.round(dieta.bicarb)} g</span></div>
+  <div className="row"><span className="row-label">🧂 Sal Mineral</span><span className="row-val">{Math.round(dieta.sal)} g</span></div>
+  <div className="row"><span className="row-label">🧪 Levadura</span><span className="row-val">{Math.round(dieta.levadura)} g</span></div>
+  <div className="row border-t border-border mt-2 pt-2">
+    <span className="row-label">📊 Consumo Total</span>
+    <span className="row-val">{dieta.consumoTotal.toFixed(1)} kg/d</span>
+  </div>
+</div>
 
       {/* SUPLEMENTOS APLICADOS */}
       {suplementosAnimal.length > 0 && (
