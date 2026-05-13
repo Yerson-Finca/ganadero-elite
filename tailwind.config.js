@@ -7,7 +7,7 @@ export default {
         bg: '#1A1A1A',
         card: '#242424',
         border: '#333333',
-        accent: '#D4A853',
+        accent: '#fdcc0d',
         'accent-light': 'rgba(201,169,110,0.12)',
         success: '#4CAF50',
         'success-light': 'rgba(91,154,107,0.12)',
