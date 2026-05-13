@@ -20,28 +20,35 @@ const Menu: React.FC<MenuProps> = ({ pagina, cambiarPagina }) => {
   return (
     <>
       <nav className="bottom-nav">
-        {botones.map((btn, i) => (
-          <React.Fragment key={btn.id}>
-            {/* Insertar botón + antes de Dashboard (índice 3) */}
-            {i === 3 && (
-              <button
-                onClick={() => setMostrarModal(true)}
-                className="bn-btn-add"
-                aria-label="Agregar animal"
-              >
-                <Icono nombre="plus" tamaño={22} variante="solid" />
-              </button>
-            )}
-            <button
-              onClick={() => cambiarPagina(btn.id)}
-              className={`bn-btn ${pagina === btn.id ? 'active' : ''}`}
-            >
-              <Icono nombre={btn.icono} tamaño={20} />
-              <span>{btn.label}</span>
-            </button>
-          </React.Fragment>
-        ))}
-      </nav>
+  {/* 1. Ajustes */}
+  <button onClick={() => cambiarPagina('ajustes')} className={`bn-btn ${pagina === 'ajustes' ? 'active' : ''}`}>
+    <Icono nombre="cog-6-tooth" tamaño={20} />
+    <span>Ajustes</span>
+  </button>
+
+  {/* 2. Insumos */}
+  <button onClick={() => cambiarPagina('insumos')} className={`bn-btn ${pagina === 'insumos' ? 'active' : ''}`}>
+    <Icono nombre="cube" tamaño={20} />
+    <span>Insumos</span>
+  </button>
+
+  {/* 3. BOTÓN ➕ CENTRADO */}
+  <button onClick={() => setMostrarModal(true)} className="bn-btn-add" aria-label="Agregar animal">
+    <Icono nombre="plus" tamaño={24} variante="solid" />
+  </button>
+
+  {/* 4. Lotes (Dashboard) */}
+  <button onClick={() => cambiarPagina('lote')} className={`bn-btn ${pagina === 'lote' ? 'active' : ''}`}>
+    <Icono nombre="chart-bar" tamaño={20} />
+    <span>Lotes</span>
+  </button>
+
+  {/* 5. Animales */}
+  <button onClick={() => cambiarPagina('animales')} className={`bn-btn ${pagina === 'animales' ? 'active' : ''}`}>
+    <Icono nombre="list-bullet" tamaño={20} />
+    <span>Animales</span>
+  </button>
+</nav>
 
       {mostrarModal && <ModalAgregar cerrar={() => setMostrarModal(false)} />}
     </>
