@@ -7,21 +7,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: '#080808',
-        card: '#111111',
-        border: '#1A1A1A',
-        accent: '#B8946A',        
-         'accent-glow': 'rgba(184,148,106,0.15)',
-        success: '#22C55E',
-        danger: '#EF4444',
-        warning: '#F59E0B',
-        info: '#60A5FA',
-        text: {
-          primary: '#F5F5F5',
-          secondary: '#888888',
-          muted: '#555555'
-        }
-      },
+  bg: '#080808',
+  card: '#111111',
+  border: '#222222',
+  accent: '#B8946A',                    // Bronce - Nivel 1
+  'accent-glow': 'rgba(184,148,106,0.12)',
+  success: '#22C55E',                   // Verde - Nivel 2
+  danger: '#EF4444',                    // Rojo - Nivel 2
+  warning: '#C8841A',                   // Ámbar
+  info: '#60A5FA',                      // Azul (IA)
+  text: {
+    primary: '#FFF8E7',                 // Crema - Nivel 3
+    secondary: '#A09080',               // Marrón claro
+    muted: '#6B6058'                    // Marrón oscuro
+  }
+},
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif']
       },
