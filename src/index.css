@@ -1,41 +1,219 @@
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {
-      colors: {
-        bg: '#000000',
-        card: '#0A0A0A',
-        border: '#1A1A1A',
-        accent: '#FDCC0D',
-        'accent-glow': 'rgba(253, 204, 13, 0.08)',
-        success: '#FDCC0D',
-        danger: '#FF6B6B',
-        warning: '#F59E0B',
-        info: '#60A5FA',
-        ia: '#7C3AED',
-        'ia-glow': 'rgba(124, 58, 237, 0.08)',
-        text: {
-          primary: '#FFFFFF',
-          secondary: '#A0AEC0',
-          muted: '#4A5568',
-        }
-      },
-      fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif']
-      },
-      fontSize: {
-        'h1': ['28px', { fontWeight: '900', lineHeight: '1.15' }],
-        'h2': ['16px', { fontWeight: '700', lineHeight: '1.2' }],
-        'h3': ['14px', { fontWeight: '600', lineHeight: '1.2' }],
-        'val': ['20px', { fontWeight: '800', lineHeight: '1.1' }],
-        'label': ['13px', { fontWeight: '400' }],
-        'muted': ['11px', { fontWeight: '400' }],
-      },
-    }
-  },
-  plugins: []
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==================== COLORES DE TEXTO ==================== */
+.text-h1 { color: #FDCC0D; font-size: 28px; font-weight: 900; line-height: 1.15; }
+.text-h2 { color: #FDCC0D; font-size: 16px; font-weight: 700; line-height: 1.2; }
+.text-h3 { color: #FDCC0D; font-size: 14px; font-weight: 600; line-height: 1.2; }
+.text-val { color: #FFFFFF; font-size: 20px; font-weight: 800; line-height: 1.1; }
+.text-label { color: #A0AEC0; font-size: 13px; font-weight: 400; }
+.text-muted { color: #4A5568; font-size: 11px; font-weight: 400; }
+.text-success { color: #FDCC0D; }
+.text-danger { color: #FF6B6B; }
+.text-info { color: #60A5FA; }
+.text-ia { color: #7C3AED; }
+
+/* ==================== RESET ==================== */
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { width: 100%; min-height: 100vh; overflow-x: hidden; }
+
+body {
+  @apply bg-bg text-white font-sans antialiased;
+  font-size: 15px; display: flex; justify-content: center;
+  font-weight: 400; line-height: 1.5; padding-bottom: 100px;
 }
+
+/* ==================== CARDS ==================== */
+.card {
+  @apply rounded-2xl p-4 mb-3;
+  background: rgba(10, 10, 10, 0.75);
+  border: 1px solid #1A1A1A;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.5), 0 0 0 1px rgba(253,204,13,0.02);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+
+.card-sm {
+  @apply rounded-xl p-3.5 mb-2.5;
+  background: rgba(10, 10, 10, 0.75);
+  border: 1px solid #1A1A1A;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+
+.ia-card {
+  @apply rounded-2xl p-4 mb-3;
+  background: rgba(10, 10, 10, 0.75);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.06), 0 0 0 1px rgba(124, 58, 237, 0.03);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+
+.ia-title { @apply text-ia font-bold flex items-center gap-1.5; font-size: 0.75rem; }
+
+/* ==================== INPUTS ==================== */
+input[type="number"], input[type="text"], select {
+  @apply w-full py-3 px-3.5 rounded-xl border text-white font-sans text-sm font-medium outline-none;
+  background: rgba(0, 0, 0, 0.5); border-color: #1A1A1A; margin: 2px 0;
+}
+select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath fill='%23A0AEC0' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+select option { background: #0A0A0A; color: #fff; }
+input:focus, select:focus { border-color: rgba(253, 204, 13, 0.35); box-shadow: 0 0 0 3px rgba(253, 204, 13, 0.05); }
+
+/* ==================== BOTONES ==================== */
+.btn {
+  @apply py-3 px-4 rounded-xl border text-sm font-semibold cursor-pointer flex items-center justify-center gap-2 transition-all duration-200 font-sans text-center;
+  background: rgba(10, 10, 10, 0.8); border-color: #1A1A1A; color: #fff;
+}
+.btn:active { transform: scale(0.97); }
+.btn-green { background: rgba(253, 204, 13, 0.08); color: #FDCC0D; border-color: rgba(253, 204, 13, 0.2); }
+.btn-green:active { background: rgba(253, 204, 13, 0.15); }
+.btn-gray { background: rgba(10, 10, 10, 0.8); @apply text-text-secondary; }
+.btn-purple { background: rgba(124, 58, 237, 0.08); color: #7C3AED; border-color: rgba(124, 58, 237, 0.2); }
+.btn-danger { background: rgba(255, 107, 107, 0.08); color: #FF6B6B; border-color: rgba(255, 107, 107, 0.2); }
+.btn-sm { @apply w-auto py-2 px-3 text-xs min-h-[34px] whitespace-nowrap; }
+.btn-icon { @apply p-2 rounded-xl border border-border text-text-secondary hover:text-accent transition-all bg-transparent cursor-pointer; }
+
+/* ==================== ROWS ==================== */
+.row { @apply flex justify-between items-center py-2.5 border-b border-[#1A1A1A]; }
+.row:last-child { border-bottom: none; }
+.row-label { @apply text-text-secondary text-xs flex items-center gap-1.5; }
+.row-val { @apply font-semibold text-sm text-white; }
+
+/* ==================== CAPITAL VALUE ==================== */
+.capital-value { @apply text-val font-black text-white; line-height: 1.05; margin-bottom: 2px; }
+
+/* ==================== GRIDS ==================== */
+.stats-grid { @apply grid grid-cols-2 gap-2 mt-2; }
+.stat-item { @apply p-2.5 rounded-xl border border-[#1A1A1A]; background: rgba(0, 0, 0, 0.4); }
+
+/* ==================== PROGRESO ==================== */
+.progress { @apply w-full h-1 rounded-full overflow-hidden my-1.5; background: rgba(255, 255, 255, 0.06); }
+.progress-fill { @apply h-full rounded-full transition-all duration-500; }
+
+/* ==================== ALERTAS ==================== */
+.alert-item { @apply flex items-start gap-2 p-2 rounded-lg mb-1 text-xs border; }
+.alert-danger { background: rgba(255, 107, 107, 0.06); border-color: rgba(255, 107, 107, 0.15); color: #FF6B6B; }
+.alert-warning { background: rgba(245, 158, 11, 0.06); border-color: rgba(245, 158, 11, 0.15); color: #F59E0B; }
+
+/* ==================== TARJETAS DE ANIMALES ==================== */
+.animal-card { @apply rounded-2xl p-3 text-center cursor-pointer relative transition-all duration-200; background: rgba(10, 10, 10, 0.75); border: 1px solid #1A1A1A; box-shadow: 0 1px 4px rgba(0,0,0,0.4); }
+.animal-card:active { transform: translateY(-2px); }
+.animal-card-inicio { border-left: 3px solid #FDCC0D; box-shadow: 0 1px 4px rgba(0,0,0,0.4), 0 0 0 1px rgba(253,204,13,0.04); }
+.animal-card-desarrollo { border-left: 3px solid #60A5FA; box-shadow: 0 1px 4px rgba(0,0,0,0.4), 0 0 0 1px rgba(96,165,250,0.04); }
+.animal-card-ceba { border-left: 3px solid #F59E0B; box-shadow: 0 1px 4px rgba(0,0,0,0.4), 0 0 0 1px rgba(245,158,11,0.04); }
+.animal-card-madurez { border-left: 3px solid #FF6B6B; box-shadow: 0 1px 4px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,107,107,0.04); }
+.animal-card .name { @apply font-bold uppercase text-[0.65rem] text-white; word-break: break-word; }
+.animal-card .weight { @apply text-white font-extrabold text-base my-0.5; }
+.animal-card .cm { @apply text-[0.6rem] font-semibold mt-0.5; }
+
+/* ==================== AVATAR ==================== */
+.animal-avatar { @apply w-10 h-10 rounded-full flex items-center justify-center text-xl mx-auto mb-1 overflow-hidden; background: rgba(0, 0, 0, 0.6); border: 2px solid rgba(255, 255, 255, 0.06); }
+.animal-avatar img { @apply w-full h-full object-cover; }
+
+/* ==================== ETIQUETAS DE ETAPA ==================== */
+.etapa-tag { @apply inline-block px-2 py-0.5 rounded-lg text-[0.5rem] font-semibold my-0.5; }
+.etapa-inicio { background: rgba(253, 204, 13, 0.08); color: #FDCC0D; }
+.etapa-desarrollo { background: rgba(96, 165, 250, 0.08); color: #60A5FA; }
+.etapa-ceba { background: rgba(245, 158, 11, 0.08); color: #F59E0B; }
+.etapa-madurez { background: rgba(255, 107, 107, 0.08); color: #FF6B6B; }
+
+/* ==================== LED ==================== */
+.mini-led { @apply absolute top-2 right-2 w-2 h-2 rounded-full; }
+.led-green { background: #FDCC0D; box-shadow: 0 0 4px rgba(253, 204, 13, 0.3); }
+.led-blue { background: #60A5FA; box-shadow: 0 0 4px rgba(96, 165, 250, 0.3); }
+.led-orange { background: #F59E0B; box-shadow: 0 0 4px rgba(245, 158, 11, 0.3); }
+.led-red { background: #FF6B6B; box-shadow: 0 0 4px rgba(255, 107, 107, 0.3); }
+.led-gray { background: #4A5568; }
+
+/* ==================== SECTION TITLE ==================== */
+.section-title { @apply flex items-center gap-1.5 text-[0.65rem] font-bold uppercase tracking-wider text-text-secondary mt-3 mb-1.5 pb-1.5 border-b border-[#1A1A1A]; }
+
+/* ==================== ALERTA CARD PERFIL ==================== */
+.alerta-card { @apply flex items-center gap-3 p-3 rounded-2xl mb-3 border; }
+.alerta-card-verde { background: rgba(253, 204, 13, 0.05); border-color: rgba(253, 204, 13, 0.12); }
+.alerta-card-azul { background: rgba(96, 165, 250, 0.05); border-color: rgba(96, 165, 250, 0.12); }
+.alerta-card-naranja { background: rgba(245, 158, 11, 0.05); border-color: rgba(245, 158, 11, 0.12); }
+.alerta-card-rojo { background: rgba(255, 107, 107, 0.05); border-color: rgba(255, 107, 107, 0.12); }
+.alerta-led { @apply w-8 h-8 rounded-full flex items-center justify-center text-xs flex-shrink-0 text-black; }
+.alerta-led-verde { background: #FDCC0D; } .alerta-led-azul { background: #60A5FA; }
+.alerta-led-naranja { background: #F59E0B; } .alerta-led-rojo { background: #FF6B6B; }
+.alerta-titulo { @apply font-bold text-sm mb-0.5; }
+.alerta-met { @apply font-semibold text-[0.65rem] mt-0.5; }
+
+/* ==================== SEMÁFORO ==================== */
+.semaforo { @apply inline-block w-3 h-3 rounded-full mr-1 align-middle; }
+.semaforo-verde { background: #FDCC0D; box-shadow: 0 0 4px rgba(253, 204, 13, 0.3); }
+.semaforo-amarillo { background: #F59E0B; box-shadow: 0 0 4px rgba(245, 158, 11, 0.3); }
+.semaforo-rojo { background: #FF6B6B; box-shadow: 0 0 4px rgba(255, 107, 107, 0.3); }
+
+/* ==================== HISTORIAL ==================== */
+.hist-item { @apply flex justify-between items-center py-2 px-2.5 rounded-xl mb-1 border border-[#1A1A1A] text-xs; background: rgba(0, 0, 0, 0.4); }
+.badge { @apply text-[0.58rem] font-semibold px-1.5 py-0.5 rounded-md; }
+.badge-up { background: rgba(253, 204, 13, 0.08); color: #FDCC0D; }
+.badge-down { background: rgba(255, 107, 107, 0.08); color: #FF6B6B; }
+
+/* ==================== PERFIL ==================== */
+.profile-cover { @apply text-center pt-4 pb-3; }
+.profile-avatar { @apply w-[72px] h-[72px] rounded-full flex items-center justify-center text-3xl mx-auto mb-2 overflow-hidden cursor-pointer; background: rgba(0, 0, 0, 0.6); border: 2px solid #FDCC0D; box-shadow: 0 0 12px rgba(253, 204, 13, 0.08); }
+.profile-avatar img { @apply w-full h-full object-cover; }
+.profile-name { @apply font-black text-lg; color: #FDCC0D; }
+.profile-sub { @apply text-[0.55rem] text-text-secondary tracking-wider font-medium; }
+.profile-stats { @apply flex gap-2 justify-center my-2; }
+.profile-stat { @apply text-center py-1.5 px-3 rounded-xl border border-[#1A1A1A]; background: rgba(0, 0, 0, 0.4); }
+.profile-stat-val { @apply text-sm font-extrabold text-white; }
+.profile-stat-lbl { @apply text-[0.5rem] text-text-secondary; }
+
+/* ==================== PROYECCIÓN ==================== */
+.proyeccion-item { @apply p-2 rounded-xl text-center border border-[#1A1A1A]; background: rgba(0, 0, 0, 0.4); }
+.proyeccion-dias { @apply text-[0.55rem] text-text-muted; }
+.proyeccion-peso { @apply font-bold text-xs text-white; }
+.proyeccion-ganancia { @apply text-[0.55rem] mt-0.5; }
+
+/* ==================== RANKING / LOTE CARD ==================== */
+.ranking-item { @apply flex items-center gap-2 py-1.5 text-xs cursor-pointer text-text-secondary; }
+.lote-card { @apply rounded-2xl p-3.5 mb-2.5 cursor-pointer transition-all duration-200; background: rgba(10, 10, 10, 0.75); border: 1px solid #1A1A1A; box-shadow: 0 1px 4px rgba(0,0,0,0.4); }
+.lote-card:active { border-color: rgba(253, 204, 13, 0.25); box-shadow: 0 0 12px rgba(253, 204, 13, 0.06); transform: translateY(-2px); }
+.lote-nombre { @apply font-bold text-sm mb-1.5 flex items-center gap-1.5 justify-between; color: #FDCC0D; }
+.lote-stats { @apply grid grid-cols-2 gap-2 text-[0.58rem]; }
+.lote-stat { @apply text-center; }
+.lote-stat .val { @apply font-bold text-white text-sm; }
+.lote-stat .lbl { @apply text-[0.45rem] text-text-muted; }
+
+/* ==================== APLICACIONES / INSUMOS ==================== */
+.aplicacion-item { @apply py-2 px-3 rounded-xl mb-1 text-[0.65rem] flex justify-between items-center border border-[#1A1A1A] text-text-secondary; background: rgba(0, 0, 0, 0.4); }
+.insumo-row { @apply flex items-center gap-2 py-2.5 border-b border-[#1A1A1A] text-sm; }
+.insumo-row:last-child { border-bottom: none; }
+.insumo-info { @apply flex-1; }
+.insumo-nombre { @apply text-[0.72rem] font-medium text-white; }
+.insumo-detalle { @apply text-[0.55rem] text-text-muted; }
+.insumo-inputs { @apply flex gap-1 items-center; }
+.insumo-inputs input { @apply w-[55px] text-right py-1.5 px-1 text-[0.65rem] min-h-[26px]; background: rgba(0, 0, 0, 0.4); }
+.sup-card { @apply border border-[#1A1A1A] rounded-xl p-3 mb-2; background: rgba(0, 0, 0, 0.4); }
+.sup-card-header { @apply flex justify-between items-center mb-1; }
+.sup-nombre { @apply text-[0.7rem] font-semibold text-white; }
+.sup-card-body { @apply text-[0.55rem] text-text-muted flex flex-wrap gap-1.5; }
+.sup-card-body span { @apply px-1.5 py-0.5 rounded-md border border-[#1A1A1A]; background: rgba(10, 10, 10, 0.6); }
+
+/* ==================== CONFIG ==================== */
+.config-section { @apply p-3 rounded-2xl mb-2.5 border border-[#1A1A1A]; background: rgba(10, 10, 10, 0.75); box-shadow: 0 1px 4px rgba(0,0,0,0.4); }
+.config-section h3 { @apply text-[0.68rem] font-bold mb-1.5 flex items-center gap-1.5; color: #FDCC0D; }
+
+/* ==================== MENÚ INFERIOR ==================== */
+.bottom-nav { @apply fixed bottom-3 left-1/2 -translate-x-1/2 flex items-center justify-center rounded-2xl px-2 py-1.5 border border-[#1A1A1A] z-[100]; background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6); }
+.bn-btn { @apply flex flex-col items-center justify-center gap-0.5 px-3 py-1.5 border-none bg-transparent text-text-secondary font-sans text-[0.5rem] font-medium cursor-pointer rounded-xl transition-all duration-200 min-w-[44px]; }
+.bn-btn.active { color: #FDCC0D; }
+.bn-btn-add { @apply w-[46px] h-[46px] rounded-full text-black text-lg cursor-pointer flex items-center justify-center mx-1.5 -mt-2 transition-all duration-200 flex-shrink-0 font-sans; background: #FDCC0D; box-shadow: 0 0 15px rgba(253, 204, 13, 0.2); }
+.bn-btn-add:active { transform: scale(0.92); box-shadow: 0 0 25px rgba(253, 204, 13, 0.35); }
+
+/* ==================== MODAL ==================== */
+.modal-overlay { @apply fixed inset-0 z-[200] flex items-center justify-center p-4; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.modal { @apply border border-[#1A1A1A] rounded-2xl p-5 w-full max-w-[400px] max-h-[80vh] overflow-y-auto; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6); }
+.modal-title { @apply font-bold text-sm mb-3 flex items-center gap-2; color: #FDCC0D; }
+
+/* ==================== TOAST ==================== */
+.toast { @apply fixed top-4 left-1/2 -translate-x-1/2 border border-[#FDCC0D] px-4 py-3 rounded-3xl z-[1000] font-medium text-xs text-white text-center max-w-[90%]; background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 0 12px rgba(253, 204, 13, 0.1); animation: slideDown 0.3s ease; }
+@keyframes slideDown { from { opacity: 0; transform: translateX(-50%) translateY(-20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+
+/* ==================== SCROLLBAR ==================== */
+::-webkit-scrollbar { width: 2px; } ::-webkit-scrollbar-track { background: transparent; } ::-webkit-scrollbar-thumb { background: #1A1A1A; border-radius: 2px; }
