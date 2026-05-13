@@ -23,7 +23,7 @@ body {
 .app-container {
   width: 100%;
   max-width: 540px;
-  padding: 10px 16px;
+  padding: 20px 12px;
   display: flex;
   flex-direction: column;
   gap: 14px;
