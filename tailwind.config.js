@@ -10,17 +10,17 @@ export default {
   bg: '#080808',
   card: '#111111',
   border: '#222222',
-  accent: '#B8946A',                    // Bronce - Nivel 1
-  'accent-glow': 'rgba(184,148,106,0.12)',
+  accent: '#A0784C',              // Marrón más fuerte
+'accent-glow': 'rgba(160,120,76,0.15)',
   success: '#22C55E',                   // Verde - Nivel 2
   danger: '#EF4444',                    // Rojo - Nivel 2
   warning: '#C8841A',                   // Ámbar
   info: '#60A5FA',                      // Azul (IA)
   text: {
-    primary: '#FFF8E7',                 // Crema - Nivel 3
-    secondary: '#A09080',               // Marrón claro
-    muted: '#6B6058'                    // Marrón oscuro
-  }
+  primary: '#FFF8E7',
+  secondary: '#C4A882',
+  muted: '#8B7355'
+}
 },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif']
