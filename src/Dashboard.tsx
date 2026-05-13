@@ -90,5 +90,17 @@ const Dashboard: React.FC<Props> = ({ animales, precioKG, verPerfil, cambiarPagi
     </div>
   )
 }
+{/* Consumo total del sistema */}
+<div className="card-sm mb-3">
+  <div className="font-bold text-xs text-white mb-2">🍽️ CONSUMO DIARIO TOTAL</div>
+  <div className="grid grid-cols-2 gap-2">
+    <div className="row"><span className="row-label">🌱 Pasto</span><span className="row-val">{mez.pasto.toFixed(1)} kg</span></div>
+    <div className="row"><span className="row-label">🌾 Salvado</span><span className="row-val">{mez.salvado.toFixed(2)} kg</span></div>
+    <div className="row"><span className="row-label">💧 Melaza</span><span className="row-val">{Math.round(mez.melaza)} g</span></div>
+    <div className="row"><span className="row-label">⚗️ UREA</span><span className="row-val">{Math.round(mez.urea)} g</span></div>
+    <div className="row"><span className="row-label">🧊 Bicarbonato</span><span className="row-val">{Math.round(mez.bicarb)} g</span></div>
+    <div className="row"><span className="row-label">🧂 Sal</span><span className="row-val">{Math.round(mez.sal)} g</span></div>
+  </div>
+</div>
 
 export default Dashboard
