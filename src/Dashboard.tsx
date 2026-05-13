@@ -5,6 +5,7 @@ import {
   predecirPeso, getEficiencia, getAlertasLote, getEtapaCompleta, getSemaforo,
   ALIMENTOS, IC_ALIMENTOS, NM_ALIMENTOS
 } from './calculos'
+import Icono from './iconos'
 
 interface Props {
   animales: Animal[]
@@ -27,21 +28,25 @@ const Dashboard: React.FC<Props> = ({
 
   useEffect(() => { db.aplicaciones.toArray().then(setAplicaciones) }, [])
 
+  const actualizarPrecio = async (val: number) => {
+    setPrecioKGInput(val)
+    const { setConfig } = await import('./db')
+    await setConfig('precioKG', val)
+    recargar()
+  }
+
   if (animales.length === 0) {
     return (
-      <div className="card text-center py-8">
-        <div className="text-4xl mb-3">🐄</div>
-        <p className="text-text-secondary text-sm">No hay animales registrados</p>
-        <p className="text-text-muted text-xs mt-1">Toca ➕ para agregar</p>
+      <div className="card text-center" style={{ padding: 40 }}>
+        <Icono nombre="cow" tamaño={40} className="text-muted" />
+        <p className="text-secondary mt-8">No hay animales registrados</p>
       </div>
     )
   }
 
-  // Cálculos
   let totalKg = 0, costoTotal = 0, pesoProy30 = 0, gmdTotal = 0, countGMD = 0
   const mez: Record<string, number> = {}
   ALIMENTOS.forEach(a => mez[a] = 0)
-  const distRend: Record<string, number> = { verde: 0, azul: 0, naranja: 0, rojo: 0, gris: 0 }
   let mejorA: any = null, peorA: any = null
 
   animales.forEach(a => {
@@ -50,8 +55,6 @@ const Dashboard: React.FC<Props> = ({
     const d = getDietaCompleta(cp, a.tipo, a.estadoRepro)
     ALIMENTOS.forEach(k => mez[k] = (mez[k] || 0) + (d[k as keyof typeof d] as number || 0))
     costoTotal += getCostoDiario(cp, a.tipo, a.estadoRepro, preciosAlimento)
-    const r = getRendimiento(a.historial)
-    distRend[r.nivel] = (distRend[r.nivel] || 0) + 1
     const gmd = getGMD(a.historial)
     if (a.historial.length >= 2) { gmdTotal += gmd; countGMD++ }
     if (!mejorA || gmd > mejorA.gmd) mejorA = { nombre: a.nombre, gmd, id: a.id }
@@ -72,30 +75,25 @@ const Dashboard: React.FC<Props> = ({
   }, 0) / ta) : 0
   const efData = getEficiencia(eficienciaGlobal)
   const alertasL = getAlertasLote(animales, stockAlimento, preciosAlimento, aplicaciones)
-
-  const actualizarPrecio = async () => {
-    const { setConfig } = await import('./db')
-    await setConfig('precioKG', precioKGInput)
-    recargar()
-    if ((window as any).haptic) (window as any).haptic()
-  }
+  const ranking = [...animales].sort((a, b) => getGMD(b.historial) - getGMD(a.historial))
 
   if (soloAnimales) {
     return (
-      <div className="grid grid-cols-2 gap-2">
+      <div className="animal-grid">
         {animales.map(a => {
           const cp = a.historial[a.historial.length - 1].peso
           const etapa = getEtapaCompleta(cp, a.tipo, a.estadoRepro)
           const r = getRendimiento(a.historial)
           const sem = getSemaforo(a)
+          const ledMap: Record<string, string> = { verde: 'led-green', azul: 'led-blue', naranja: 'led-orange', rojo: 'led-red', gris: 'led-gray' }
           return (
             <div key={a.id} className={`animal-card ${etapa.cardClass}`} onClick={() => verPerfil(a.id!)}>
-              <div className="mini-led led-green" />
-              <div className="animal-avatar">{a.foto ? <img src={a.foto} alt={a.nombre} /> : etapa.icono}</div>
-              <div className="name">{a.nombre}{sem && <span className={`semaforo semaforo-${sem.color} ml-1`} />}</div>
-              <span className={`etapa-tag ${etapa.clase}`}>{etapa.rango}</span>
+              <div className={`led ${ledMap[r.nivel] || 'led-gray'}`} />
+              <div className="avatar">{a.foto ? <img src={a.foto} alt={a.nombre} /> : etapa.icono}</div>
+              <div className="name">{a.nombre}</div>
+              <span className={`tag ${etapa.clase}`}>{etapa.rango}</span>
               <div className="weight">{fm(cp)} kg</div>
-              <div className="cm" style={{ color: r.cm >= 0 ? '#FDCC0D' : '#FF6B6B' }}>
+              <div className="cm" style={{ color: r.cm >= 0 ? '#4CAF50' : '#E0554A' }}>
                 {r.cm >= 0 ? '+' : ''}{r.cm.toFixed(1)}%
               </div>
             </div>
@@ -105,42 +103,46 @@ const Dashboard: React.FC<Props> = ({
     )
   }
 
-  const ranking = [...animales].sort((a, b) => getGMD(b.historial) - getGMD(a.historial))
-
   return (
-    <div className="flex flex-col gap-3">
+    <div className="gap-16" style={{ display: 'flex', flexDirection: 'column' }}>
       {/* Precio KG */}
       <div className="card-sm">
-        <div className="flex items-center justify-between">
-          <span className="text-xs text-text-secondary uppercase tracking-wider">Precio KG</span>
-          <span className="text-[10px] text-success">● Live</span>
+        <div className="section-title">
+          <Icono nombre="dollar" tamaño={16} />
+          PRECIO KG EN PIE
         </div>
-        <div className="flex items-center gap-2 mt-1.5">
-          <span className="text-lg font-black text-white">$</span>
-          <input className="bg-transparent text-lg font-black text-white w-20 outline-none" type="number" value={precioKGInput} onChange={e => setPrecioKGInput(parseFloat(e.target.value) || 0)} />
-          <span className="text-xs text-text-muted">COP</span>
-          <button onClick={actualizarPrecio} className="btn btn-sm btn-green ml-auto">Actualizar</button>
+        <div className="row">
+          <span className="row-label">Valor actual</span>
+          <input
+            type="number"
+            value={precioKGInput}
+            onChange={e => actualizarPrecio(parseFloat(e.target.value) || 0)}
+            style={{ width: 120, textAlign: 'right', fontWeight: 600 }}
+          />
         </div>
       </div>
 
       {/* Métricas */}
-      <div className="grid grid-cols-2 gap-2">
-        <div className="card-sm">
-          <div className="text-xs text-text-muted mb-1">Peso Total</div>
-          <div className="text-xl font-black text-white">{fm(totalKg)} kg</div>
-          <div className="text-xs text-text-muted mt-1">{ta} animales</div>
+      <div className="metric-grid">
+        <div className="metric-card">
+          <div className="metric-label"><Icono nombre="scale" tamaño={14} /> Peso Total</div>
+          <div className="metric-value">{fm(totalKg)} kg</div>
+          <div className="metric-sub">{ta} animales</div>
         </div>
-        <div className="card-sm">
-          <div className="text-xs text-text-muted mb-1">Valor Est.</div>
-          <div className="text-xl font-black text-white">$ {fm(totalKg * precioKG)}</div>
-          <div className="text-xs text-success mt-1">GMD {gmdL.toFixed(2)}</div>
+        <div className="metric-card">
+          <div className="metric-label"><Icono nombre="dollar" tamaño={14} /> Valor Est.</div>
+          <div className="metric-value">$ {fm(totalKg * precioKG)}</div>
+          <div className="metric-sub">GMD {gmdL.toFixed(2)} kg/d</div>
         </div>
       </div>
 
       {/* IA */}
-      <div className="ia-card">
-        <div className="ia-title">🧠 IA DEL SISTEMA</div>
-        <div className="grid grid-cols-2 gap-2 mb-2">
+      <div className="card-ia">
+        <div className="section-title">
+          <Icono nombre="sparkles" tamaño={16} />
+          IA DEL SISTEMA
+        </div>
+        <div className="proyeccion-grid">
           <div className="proyeccion-item">
             <div className="proyeccion-dias">EFICIENCIA</div>
             <div className="proyeccion-peso" style={{ color: efData.color }}>{eficienciaGlobal}%</div>
@@ -149,19 +151,16 @@ const Dashboard: React.FC<Props> = ({
           <div className="proyeccion-item">
             <div className="proyeccion-dias">30 DÍAS</div>
             <div className="proyeccion-peso">{fm(pesoProy30)} kg</div>
-            <div className="proyeccion-ganancia" style={{ color: gan30 >= 0 ? '#FDCC0D' : '#FF6B6B' }}>
+            <div className="proyeccion-ganancia" style={{ color: gan30 >= 0 ? '#4CAF50' : '#E0554A' }}>
               {gan30 >= 0 ? '+' : ''}$ {fm(Math.abs(gan30))}
             </div>
           </div>
         </div>
         {mejorA && (
           <div className="ranking-item" onClick={() => verPerfil(mejorA.id)}>
-            🏆 Mejor: <b>{mejorA.nombre}</b> +{mejorA.gmd.toFixed(2)} kg/d
-          </div>
-        )}
-        {peorA && ta > 1 && (
-          <div className="ranking-item" onClick={() => verPerfil(peorA.id)}>
-            ⚠️ Atención: <b>{peorA.nombre}</b> +{peorA.gmd.toFixed(2)} kg/d
+            <Icono nombre="star" tamaño={14} />
+            <span>Mejor: <b>{mejorA.nombre}</b></span>
+            <span style={{ color: '#4CAF50' }}>+{mejorA.gmd.toFixed(2)} kg/d</span>
           </div>
         )}
       </div>
@@ -169,53 +168,64 @@ const Dashboard: React.FC<Props> = ({
       {/* Alertas */}
       {alertasL.length > 0 && (
         <div className="card-sm">
-          <div className="font-bold text-xs text-white mb-1.5">🔔 ALERTAS ({alertasL.length})</div>
+          <div className="section-title">
+            <Icono nombre="bell" tamaño={14} />
+            ALERTAS
+          </div>
           {alertasL.slice(0, 3).map((al, i) => (
-            <div key={i} className={`alert-item ${al.t === 'r' ? 'alert-danger' : 'alert-warning'}`}>
+            <div key={i} className={`alert-item ${al.t === 'r' ? 'alert-danger' : al.t === 'purple' ? 'alert-purple' : 'alert-warning'}`}>
               {al.icon} <span dangerouslySetInnerHTML={{ __html: al.m }} />
             </div>
           ))}
         </div>
       )}
 
-      {/* CONSUMO DIARIO TOTAL */}
+      {/* Consumo diario */}
       <div className="card-sm">
-        <div className="font-bold text-xs text-white mb-1.5">🍽️ CONSUMO DIARIO TOTAL</div>
-        <div className="grid grid-cols-2 gap-x-4 gap-y-1">
-          {ALIMENTOS.map(alim => (
-            <div key={alim} className="row !py-1.5">
-              <span className="row-label">{IC_ALIMENTOS[alim]} {NM_ALIMENTOS[alim]}</span>
-              <span className="row-val text-xs">
-                {alim === 'pasto' || alim === 'salvado'
-                  ? (mez[alim] || 0).toFixed(1) + ' kg'
-                  : Math.round(mez[alim] || 0) + ' g'}
-              </span>
-            </div>
-          ))}
+        <div className="section-title">
+          <Icono nombre="leaf" tamaño={14} />
+          CONSUMO DIARIO
         </div>
+        {ALIMENTOS.map(alim => (
+          <div key={alim} className="row">
+            <span className="row-label">{IC_ALIMENTOS[alim]} {NM_ALIMENTOS[alim]}</span>
+            <span className="row-val">
+              {alim === 'pasto' || alim === 'salvado'
+                ? (mez[alim] || 0).toFixed(1) + ' kg'
+                : Math.round(mez[alim] || 0) + ' g'}
+            </span>
+          </div>
+        ))}
       </div>
 
       {/* Ranking */}
       <div className="card-sm">
-        <div className="font-bold text-xs text-white mb-1.5">🏆 RANKING GMD</div>
+        <div className="section-title">
+          <Icono nombre="star" tamaño={14} />
+          RANKING GMD
+        </div>
         {ranking.slice(0, 3).map((a, i) => (
           <div key={a.id} className="ranking-item" onClick={() => verPerfil(a.id!)}>
-            <span>{['🥇', '🥈', '🥉'][i]}</span>
-            <b>{a.nombre}</b>: +{getGMD(a.historial).toFixed(2)} kg/d
+            <span>{['1º', '2º', '3º'][i]}</span>
+            <span><b>{a.nombre}</b></span>
+            <span style={{ color: '#4CAF50' }}>+{getGMD(a.historial).toFixed(2)} kg/d</span>
           </div>
         ))}
-        <button className="btn btn-sm btn-gray w-full mt-2" onClick={() => cambiarPagina('animales')}>
-          Ver todos →
-        </button>
       </div>
 
       {/* Finanzas */}
       <div className="card-sm">
-        <div className="font-bold text-xs text-white mb-1.5">💰 FINANZAS</div>
-        <div className="row"><span className="row-label">Alimentación/día</span><span className="row-val">$ {fm(costoTotal)}</span></div>
+        <div className="section-title">
+          <Icono nombre="dollar" tamaño={14} />
+          FINANZAS
+        </div>
+        <div className="row">
+          <span className="row-label">Alimentación/día</span>
+          <span className="row-val">$ {fm(costoTotal)}</span>
+        </div>
         <div className="row">
           <span className="row-label">Ganancia/mes</span>
-          <span className="row-val" style={{ color: gan >= 0 ? '#FDCC0D' : '#FF6B6B' }}>$ {fm(gan)}</span>
+          <span className="row-val" style={{ color: gan >= 0 ? '#4CAF50' : '#E0554A' }}>$ {fm(gan)}</span>
         </div>
       </div>
     </div>
