@@ -1,13 +1,9 @@
 import React from 'react'
 
-interface Props {
-  titulo: string
-  mensaje: string
-  onConfirm: () => void
-  onCancel: () => void
-}
+interface Props { open: boolean; titulo: string; mensaje: string; onConfirm: () => void; onCancel: () => void }
 
-const ModalConfirm: React.FC<Props> = ({ titulo, mensaje, onConfirm, onCancel }) => {
+const ModalConfirm: React.FC<Props> = ({ open, titulo, mensaje, onConfirm, onCancel }) => {
+  if (!open) return null
   return (
     <div className="modal-overlay" onClick={onCancel}>
       <div className="modal" onClick={e => e.stopPropagation()}>
