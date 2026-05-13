@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import Header from './components/Header'
-import Nav from './components/Nav'
-import Dashboard from './pages/Dashboard'
-import Precios from './pages/Precios'
-import Stock from './pages/Stock'
-import Sanidad from './pages/Sanidad'
-import Perfil from './pages/Perfil'
-import Toast from './components/Toast'
+import Dashboard from './Dashboard'
+import Precios from './Precios'
+import Stock from './Stock'
+import Sanidad from './Sanidad'
+import Perfil from './Perfil'
+import Toast from './Toast'
 import { db, inicializarDB } from './db'
 
 const App: React.FC = () => {
@@ -24,8 +22,25 @@ const App: React.FC = () => {
     <div className="app">
       <div className="aurora" />
       {toast && <Toast mensaje={toast} />}
-      <Header />
-      <Nav pagina={pagina} setPagina={setPagina} />
+      
+      <header>
+        <h1>👑 GANADERO ÉLITE</h1>
+        <p className="subtitle">Gestión Inteligente</p>
+      </header>
+
+      <nav className="nav">
+        {[
+          { id: 'lote', icon: 'fa-chart-pie', label: 'LOTE' },
+          { id: 'precios', icon: 'fa-tags', label: 'PRECIOS' },
+          { id: 'stock', icon: 'fa-boxes', label: 'STOCK' },
+          { id: 'sanidad', icon: 'fa-syringe', label: 'SAN' },
+        ].map(item => (
+          <button key={item.id} className={`nav-btn ${pagina === item.id ? 'active' : ''}`} onClick={() => setPagina(item.id)}>
+            <i className={`fa-solid ${item.icon}`} /> {item.label}
+          </button>
+        ))}
+      </nav>
+
       {pagina === 'lote' && <Dashboard showToast={showToast} verPerfil={verPerfil} />}
       {pagina === 'precios' && <Precios showToast={showToast} />}
       {pagina === 'stock' && <Stock showToast={showToast} />}
