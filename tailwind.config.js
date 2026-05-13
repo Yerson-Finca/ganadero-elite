@@ -9,19 +9,17 @@ export default {
       colors: {
   bg: '#080808',
   card: '#111111',
-  border: '#222222',
-  accent: '#A0784C',              // Marrón más fuerte
-'accent-glow': 'rgba(160,120,76,0.15)',
-  success: '#22C55E',                   // Verde - Nivel 2
-  danger: '#EF4444',                    // Rojo - Nivel 2
-  warning: '#C8841A',                   // Ámbar
-  info: '#60A5FA',                      // Azul (IA)
+  border: '#1A1A1A',
+  accent: '#FFFFFF',           // Blanco como acento
+  success: '#22C55E',          // Verde solo ganancias
+  danger: '#EF4444',           // Rojo solo pérdidas
+  warning: '#F59E0B',          // Ámbar para alertas
+  info: '#60A5FA',             // Azul para IA
   text: {
-  primary: '#FFFFFF',       // T1 - Blanco (títulos)
-  accent: '#D4A574',        // T2 - Ámbar (precios, valores)
-  secondary: '#A0A0A0',     // T3 - Gris claro (etiquetas)
-  muted: '#666666',         // T4 - Gris oscuro (fechas)
-}
+    primary: '#FFFFFF',        // Blanco
+    secondary: '#AAAAAA',      // Gris claro
+    muted: '#666666',          // Gris oscuro
+  }
 },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif']
