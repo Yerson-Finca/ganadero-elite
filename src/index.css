@@ -3,16 +3,17 @@
 @tailwind utilities;
 
 /* ==================== COLORES DE TEXTO ==================== */
-.text-h1 { color: #00D4AA; font-size: 28px; font-weight: 900; line-height: 1.15; }
-.text-h2 { color: #00D4AA; font-size: 18px; font-weight: 700; line-height: 1.2; }
-.text-h3 { color: #00D4AA; font-size: 15px; font-weight: 600; line-height: 1.2; }
+.text-h1 { color: #4FD1C5; font-size: 28px; font-weight: 900; line-height: 1.15; }
+.text-h2 { color: #4FD1C5; font-size: 18px; font-weight: 700; line-height: 1.2; }
+.text-h3 { color: #4FD1C5; font-size: 15px; font-weight: 600; line-height: 1.2; }
 .text-val { color: #FFFFFF; font-size: 20px; font-weight: 800; line-height: 1.1; }
-.text-label { color: #8B8B9E; font-size: 13px; font-weight: 400; }
-.text-muted { color: #5C5C7A; font-size: 11px; font-weight: 400; }
-.text-success { color: #00D4AA; }
-.text-danger { color: #FF4757; }
+.text-label { color: #A0AEC0; font-size: 13px; font-weight: 400; }
+.text-muted { color: #4A5568; font-size: 11px; font-weight: 400; }
+.text-success { color: #4FD1C5; }
+.text-danger { color: #FF6B6B; }
 .text-info { color: #60A5FA; }
-.text-ia { color: #8B5CF6; }
+.text-ia { color: #7C3AED; }
+
 /* ==================== RESET ==================== */
 * {
   margin: 0;
@@ -39,25 +40,24 @@ body {
 
 /* ==================== CARDS ==================== */
 .card {
-  @apply bg-card border border-border rounded-2xl p-5 mb-3.5 shadow-card;
-  background: rgba(26, 26, 46, 0.6);
+  @apply bg-card border border-border rounded-2xl p-5 mb-3.5;
+  background: rgba(15, 15, 15, 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
 .card-sm {
   @apply bg-card border border-border rounded-xl p-4;
-  background: rgba(26, 26, 46, 0.6);
+  background: rgba(15, 15, 15, 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
 
-/* Tarjeta IA con glow morado */
 .ia-card {
   @apply bg-card border rounded-2xl p-4 mb-3.5;
-  border-color: rgba(139, 92, 246, 0.3);
-  box-shadow: 0 0 15px rgba(139, 92, 246, 0.1), 0 0 30px rgba(139, 92, 246, 0.05);
-  background: rgba(26, 26, 46, 0.6);
+  border-color: rgba(124, 58, 237, 0.25);
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.08), 0 0 30px rgba(124, 58, 237, 0.03);
+  background: rgba(15, 15, 15, 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -72,59 +72,63 @@ input[type="number"],
 input[type="text"],
 select {
   @apply w-full py-3.5 px-4 rounded-xl border text-white font-sans text-[15px] font-medium outline-none;
-  background: rgba(11, 11, 15, 0.6);
-  border-color: #2A2A3E;
+  background: rgba(0, 0, 0, 0.5);
+  border-color: #1A1A1A;
   margin: 2px 0;
 }
 
 select {
   appearance: none;
   -webkit-appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath fill='%238B8B9E' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath fill='%23A0AEC0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 16px center;
   padding-right: 40px;
 }
 
 select option {
-  background: #1A1A2E;
+  background: #0F0F0F;
   color: #fff;
 }
 
 input:focus, select:focus {
-  border-color: #00D4AA;
-  box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1), 0 0 15px rgba(0, 212, 170, 0.1);
+  border-color: #4FD1C5;
+  box-shadow: 0 0 0 3px rgba(79, 209, 197, 0.08), 0 0 12px rgba(79, 209, 197, 0.06);
 }
 
 /* ==================== BOTONES ==================== */
 .btn {
   @apply w-full py-[15px] px-[18px] rounded-2xl border text-sm font-semibold cursor-pointer flex items-center justify-center gap-2 transition-all duration-200 mb-2.5 font-sans text-center;
-  background: rgba(26, 26, 46, 0.8);
-  border-color: #2A2A3E;
+  background: rgba(15, 15, 15, 0.8);
+  border-color: #1A1A1A;
   color: #fff;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
 }
 
 .btn:active { transform: scale(0.97); }
 .btn:last-child { margin-bottom: 0; }
 
 .btn-green {
-  @apply bg-success text-black border-success;
-  box-shadow: 0 0 15px rgba(0, 212, 170, 0.2);
+  background: #4FD1C5;
+  color: #000;
+  border-color: #4FD1C5;
+  box-shadow: 0 0 12px rgba(79, 209, 197, 0.15);
 }
 
 .btn-gray {
-  background: rgba(26, 26, 46, 0.8);
+  background: rgba(15, 15, 15, 0.8);
   @apply text-text-secondary;
 }
 
 .btn-purple {
-  @apply bg-ia/15 text-ia border-ia/30;
+  background: rgba(124, 58, 237, 0.12);
+  color: #7C3AED;
+  border-color: rgba(124, 58, 237, 0.25);
 }
 
 .btn-danger {
-  @apply bg-danger/15 text-danger border-danger/30;
+  background: rgba(255, 107, 107, 0.1);
+  color: #FF6B6B;
+  border-color: rgba(255, 107, 107, 0.25);
 }
 
 .btn-sm {
@@ -134,7 +138,7 @@ input:focus, select:focus {
 /* ==================== ROWS ==================== */
 .row {
   @apply flex justify-between items-center py-2.5 border-b;
-  border-color: rgba(42, 42, 62, 0.5);
+  border-color: rgba(255, 255, 255, 0.04);
 }
 
 .row:last-child { border-bottom: none; }
@@ -161,14 +165,14 @@ input:focus, select:focus {
 
 .stat-item {
   @apply p-2.5 rounded-xl border;
-  background: rgba(11, 11, 15, 0.6);
-  border-color: rgba(42, 42, 62, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.04);
 }
 
 /* ==================== PROGRESO ==================== */
 .progress {
   @apply w-full h-1.5 rounded-full overflow-hidden my-2;
-  background: rgba(42, 42, 62, 0.5);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 .progress-fill {
@@ -182,31 +186,34 @@ input:focus, select:focus {
 }
 
 .alert-danger {
-  @apply bg-danger/10 border-danger/30 text-danger;
+  background: rgba(255, 107, 107, 0.08);
+  border-color: rgba(255, 107, 107, 0.2);
+  color: #FF6B6B;
 }
 
 .alert-warning {
-  @apply bg-warning/10 border-warning/30 text-warning;
+  background: rgba(245, 158, 11, 0.08);
+  border-color: rgba(245, 158, 11, 0.2);
+  color: #F59E0B;
 }
 
 /* ==================== TARJETAS DE ANIMALES ==================== */
 .animal-card {
   @apply border rounded-2xl p-3.5 text-center cursor-pointer relative transition-all duration-200;
-  background: rgba(26, 26, 46, 0.6);
-  border-color: #2A2A3E;
-  backdrop-filter: blur(5px);
+  background: rgba(15, 15, 15, 0.7);
+  border-color: #1A1A1A;
 }
 
 .animal-card:active {
-  border-color: #00D4AA;
-  box-shadow: 0 0 20px rgba(0, 212, 170, 0.15);
+  border-color: #4FD1C5;
+  box-shadow: 0 0 15px rgba(79, 209, 197, 0.1);
   transform: translateY(-2px);
 }
 
-.animal-card-inicio { border-left: 3px solid #00D4AA; }
+.animal-card-inicio { border-left: 3px solid #4FD1C5; }
 .animal-card-desarrollo { border-left: 3px solid #60A5FA; }
 .animal-card-ceba { border-left: 3px solid #F59E0B; }
-.animal-card-madurez { border-left: 3px solid #FF4757; }
+.animal-card-madurez { border-left: 3px solid #FF6B6B; }
 
 .animal-card .name {
   @apply font-bold uppercase text-[0.68rem] text-white;
@@ -224,8 +231,8 @@ input:focus, select:focus {
 /* ==================== AVATAR ==================== */
 .animal-avatar {
   @apply w-11 h-11 rounded-full flex items-center justify-center text-2xl mx-auto mb-1.5 overflow-hidden;
-  background: rgba(11, 11, 15, 0.8);
-  border: 2px solid rgba(42, 42, 62, 0.5);
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.06);
 }
 
 .animal-avatar img {
@@ -237,47 +244,46 @@ input:focus, select:focus {
   @apply inline-block px-2 py-0.5 rounded-lg text-[0.55rem] font-semibold my-0.5;
 }
 
-.etapa-inicio { @apply bg-accent/15 text-accent; }
-.etapa-desarrollo { @apply bg-info/15 text-info; }
-.etapa-ceba { @apply bg-warning/15 text-warning; }
-.etapa-madurez { @apply bg-danger/15 text-danger; }
+.etapa-inicio { background: rgba(79, 209, 197, 0.12); color: #4FD1C5; }
+.etapa-desarrollo { background: rgba(96, 165, 250, 0.12); color: #60A5FA; }
+.etapa-ceba { background: rgba(245, 158, 11, 0.12); color: #F59E0B; }
+.etapa-madurez { background: rgba(255, 107, 107, 0.12); color: #FF6B6B; }
 
 /* ==================== LED INDICADOR ==================== */
 .mini-led {
   @apply absolute top-2.5 right-2.5 w-2 h-2 rounded-full;
 }
 
-.led-green { @apply bg-success; box-shadow: 0 0 6px rgba(0,212,170,0.5); }
-.led-blue { @apply bg-info; box-shadow: 0 0 6px rgba(96,165,250,0.5); }
-.led-orange { @apply bg-warning; box-shadow: 0 0 6px rgba(245,158,11,0.5); }
-.led-red { @apply bg-danger; box-shadow: 0 0 6px rgba(255,71,87,0.5); }
-.led-gray { @apply bg-text-muted; }
+.led-green { background: #4FD1C5; box-shadow: 0 0 5px rgba(79, 209, 197, 0.4); }
+.led-blue { background: #60A5FA; box-shadow: 0 0 5px rgba(96, 165, 250, 0.4); }
+.led-orange { background: #F59E0B; box-shadow: 0 0 5px rgba(245, 158, 11, 0.4); }
+.led-red { background: #FF6B6B; box-shadow: 0 0 5px rgba(255, 107, 107, 0.4); }
+.led-gray { background: #4A5568; }
 
 /* ==================== TÍTULOS DE SECCIÓN ==================== */
 .section-title {
   @apply flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-text-secondary mt-4 mb-2 pb-1.5 border-b;
-  border-color: rgba(42, 42, 62, 0.5);
+  border-color: rgba(255, 255, 255, 0.04);
 }
 
 /* ==================== ALERTA CARD PERFIL ==================== */
 .alerta-card {
   @apply flex items-center gap-3.5 p-3.5 rounded-2xl mb-3.5 border;
-  backdrop-filter: blur(5px);
 }
 
-.alerta-card-verde { @apply bg-success/10 border-success/30; }
-.alerta-card-azul { @apply bg-info/10 border-info/30; }
-.alerta-card-naranja { @apply bg-warning/10 border-warning/30; }
-.alerta-card-rojo { @apply bg-danger/10 border-danger/30; }
+.alerta-card-verde { background: rgba(79, 209, 197, 0.08); border-color: rgba(79, 209, 197, 0.2); }
+.alerta-card-azul { background: rgba(96, 165, 250, 0.08); border-color: rgba(96, 165, 250, 0.2); }
+.alerta-card-naranja { background: rgba(245, 158, 11, 0.08); border-color: rgba(245, 158, 11, 0.2); }
+.alerta-card-rojo { background: rgba(255, 107, 107, 0.08); border-color: rgba(255, 107, 107, 0.2); }
 
 .alerta-led {
   @apply w-9 h-9 rounded-full flex items-center justify-center text-sm flex-shrink-0 text-black;
 }
 
-.alerta-led-verde { @apply bg-success; }
-.alerta-led-azul { @apply bg-info; }
-.alerta-led-naranja { @apply bg-warning; }
-.alerta-led-rojo { @apply bg-danger; }
+.alerta-led-verde { background: #4FD1C5; }
+.alerta-led-azul { background: #60A5FA; }
+.alerta-led-naranja { background: #F59E0B; }
+.alerta-led-rojo { background: #FF6B6B; }
 
 .alerta-titulo {
   @apply font-bold text-sm mb-0.5;
@@ -292,23 +298,23 @@ input:focus, select:focus {
   @apply inline-block w-3.5 h-3.5 rounded-full mr-1 align-middle;
 }
 
-.semaforo-verde { @apply bg-success; box-shadow: 0 0 6px rgba(0,212,170,0.5); }
-.semaforo-amarillo { @apply bg-warning; box-shadow: 0 0 6px rgba(245,158,11,0.5); }
-.semaforo-rojo { @apply bg-danger; box-shadow: 0 0 6px rgba(255,71,87,0.5); }
+.semaforo-verde { background: #4FD1C5; box-shadow: 0 0 5px rgba(79, 209, 197, 0.4); }
+.semaforo-amarillo { background: #F59E0B; box-shadow: 0 0 5px rgba(245, 158, 11, 0.4); }
+.semaforo-rojo { background: #FF6B6B; box-shadow: 0 0 5px rgba(255, 107, 107, 0.4); }
 
 /* ==================== HISTORIAL ==================== */
 .hist-item {
   @apply flex justify-between items-center py-2 px-2.5 rounded-xl mb-1 border text-xs;
-  background: rgba(11, 11, 15, 0.6);
-  border-color: rgba(42, 42, 62, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.04);
 }
 
 .badge {
   @apply text-[0.62rem] font-semibold px-1.5 py-0.5 rounded-md;
 }
 
-.badge-up { @apply bg-success/15 text-success; }
-.badge-down { @apply bg-danger/15 text-danger; }
+.badge-up { background: rgba(79, 209, 197, 0.12); color: #4FD1C5; }
+.badge-down { background: rgba(255, 107, 107, 0.12); color: #FF6B6B; }
 
 /* ==================== PERFIL ==================== */
 .profile-cover {
@@ -317,9 +323,9 @@ input:focus, select:focus {
 
 .profile-avatar {
   @apply w-20 h-20 rounded-full flex items-center justify-center text-[2.5rem] mx-auto mb-2 overflow-hidden cursor-pointer;
-  background: rgba(11, 11, 15, 0.8);
-  border: 3px solid #00D4AA;
-  box-shadow: 0 0 20px rgba(0, 212, 170, 0.2);
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid #4FD1C5;
+  box-shadow: 0 0 15px rgba(79, 209, 197, 0.15);
 }
 
 .profile-avatar img {
@@ -327,7 +333,8 @@ input:focus, select:focus {
 }
 
 .profile-name {
-  @apply font-black text-xl text-accent;
+  @apply font-black text-xl;
+  color: #4FD1C5;
 }
 
 .profile-sub {
@@ -340,8 +347,8 @@ input:focus, select:focus {
 
 .profile-stat {
   @apply text-center py-1.5 px-3.5 rounded-xl border;
-  background: rgba(11, 11, 15, 0.6);
-  border-color: rgba(42, 42, 62, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.04);
 }
 
 .profile-stat-val {
@@ -355,8 +362,8 @@ input:focus, select:focus {
 /* ==================== PROYECCIÓN ==================== */
 .proyeccion-item {
   @apply p-2.5 rounded-xl text-center border;
-  background: rgba(11, 11, 15, 0.6);
-  border-color: rgba(42, 42, 62, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.04);
 }
 
 .proyeccion-dias {
@@ -378,19 +385,19 @@ input:focus, select:focus {
 
 .lote-card {
   @apply border rounded-2xl p-4 mb-2.5 cursor-pointer transition-all duration-200;
-  background: rgba(26, 26, 46, 0.6);
-  border-color: #2A2A3E;
-  backdrop-filter: blur(5px);
+  background: rgba(15, 15, 15, 0.7);
+  border-color: #1A1A1A;
 }
 
 .lote-card:active {
-  border-color: #00D4AA;
-  box-shadow: 0 0 20px rgba(0, 212, 170, 0.15);
+  border-color: #4FD1C5;
+  box-shadow: 0 0 15px rgba(79, 209, 197, 0.1);
   transform: translateY(-2px);
 }
 
 .lote-nombre {
-  @apply font-bold text-sm text-accent mb-2 flex items-center gap-1.5 justify-between;
+  @apply font-bold text-sm mb-2 flex items-center gap-1.5 justify-between;
+  color: #4FD1C5;
 }
 
 .lote-stats {
@@ -412,13 +419,13 @@ input:focus, select:focus {
 /* ==================== APLICACIONES / INSUMOS ==================== */
 .aplicacion-item {
   @apply py-2 px-3 rounded-xl mb-1 text-[0.68rem] flex justify-between items-center border text-text-secondary;
-  background: rgba(11, 11, 15, 0.6);
-  border-color: rgba(42, 42, 62, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.04);
 }
 
 .insumo-row {
   @apply flex items-center gap-2 py-2.5 border-b text-sm;
-  border-color: rgba(42, 42, 62, 0.5);
+  border-color: rgba(255, 255, 255, 0.04);
 }
 
 .insumo-row:last-child { border-bottom: none; }
@@ -439,13 +446,13 @@ input:focus, select:focus {
 
 .insumo-inputs input {
   @apply w-[60px] text-right py-1.5 px-1 text-[0.7rem] min-h-[28px];
-  background: rgba(11, 11, 15, 0.6);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .sup-card {
   @apply border rounded-2xl p-3 mb-2;
-  background: rgba(11, 11, 15, 0.6);
-  border-color: rgba(42, 42, 62, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.04);
 }
 
 .sup-card-header {
@@ -462,30 +469,30 @@ input:focus, select:focus {
 
 .sup-card-body span {
   @apply px-1.5 py-0.5 rounded-md border;
-  background: rgba(26, 26, 46, 0.6);
-  border-color: rgba(42, 42, 62, 0.5);
+  background: rgba(15, 15, 15, 0.6);
+  border-color: rgba(255, 255, 255, 0.04);
 }
 
 /* ==================== CONFIG ==================== */
 .config-section {
   @apply p-3 rounded-2xl mb-2.5 border;
-  background: rgba(26, 26, 46, 0.6);
-  border-color: #2A2A3E;
-  backdrop-filter: blur(5px);
+  background: rgba(15, 15, 15, 0.7);
+  border-color: #1A1A1A;
 }
 
 .config-section h3 {
-  @apply text-[0.7rem] font-bold text-accent mb-1.5 flex items-center gap-1.5;
+  @apply text-[0.7rem] font-bold mb-1.5 flex items-center gap-1.5;
+  color: #4FD1C5;
 }
 
 /* ==================== MENÚ INFERIOR ==================== */
 .bottom-nav {
   @apply fixed bottom-4 left-1/2 -translate-x-1/2 flex items-center justify-center rounded-2xl px-2.5 py-1.5 border z-[100];
-  background: rgba(26, 26, 46, 0.8);
-  border-color: rgba(42, 42, 62, 0.5);
+  background: rgba(15, 15, 15, 0.85);
+  border-color: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
 .bn-btn {
@@ -493,48 +500,50 @@ input:focus, select:focus {
 }
 
 .bn-btn.active {
-  @apply text-accent;
+  color: #4FD1C5;
 }
 
 .bn-btn-add {
-  @apply w-[50px] h-[50px] rounded-full bg-accent text-black text-xl cursor-pointer flex items-center justify-center mx-1.5 -mt-2.5 transition-all duration-200 flex-shrink-0 font-sans;
-  box-shadow: 0 0 25px rgba(0, 212, 170, 0.3), 0 0 50px rgba(0, 212, 170, 0.1);
+  @apply w-[50px] h-[50px] rounded-full text-black text-xl cursor-pointer flex items-center justify-center mx-1.5 -mt-2.5 transition-all duration-200 flex-shrink-0 font-sans;
+  background: #4FD1C5;
+  box-shadow: 0 0 20px rgba(79, 209, 197, 0.25), 0 0 40px rgba(79, 209, 197, 0.08);
 }
 
 .bn-btn-add:active {
   transform: scale(0.92);
-  box-shadow: 0 0 35px rgba(0, 212, 170, 0.5);
+  box-shadow: 0 0 30px rgba(79, 209, 197, 0.4);
 }
 
 /* ==================== MODAL ==================== */
 .modal-overlay {
   @apply fixed inset-0 z-[200] flex items-center justify-center p-5;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.75);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
 }
 
 .modal {
   @apply border rounded-2xl p-6 w-full max-w-[420px] max-h-[80vh] overflow-y-auto;
-  background: rgba(26, 26, 46, 0.9);
-  border-color: rgba(42, 42, 62, 0.5);
+  background: rgba(15, 15, 15, 0.9);
+  border-color: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
 .modal-title {
-  @apply font-bold text-sm mb-3 text-accent flex items-center gap-2;
+  @apply font-bold text-sm mb-3 flex items-center gap-2;
+  color: #4FD1C5;
 }
 
 /* ==================== TOAST ==================== */
 .toast {
   @apply fixed top-5 left-1/2 -translate-x-1/2 border px-5 py-3.5 rounded-3xl z-[1000] font-medium text-sm text-white text-center max-w-[90%];
-  background: rgba(26, 26, 46, 0.9);
-  border-color: #00D4AA;
+  background: rgba(15, 15, 15, 0.9);
+  border-color: #4FD1C5;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 0 20px rgba(0, 212, 170, 0.2);
+  box-shadow: 0 0 15px rgba(79, 209, 197, 0.15);
   animation: slideDown 0.3s ease;
 }
 
@@ -546,4 +555,4 @@ input:focus, select:focus {
 /* ==================== SCROLLBAR ==================== */
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { @apply bg-border rounded-sm; }
+::-webkit-scrollbar-thumb { background: #1A1A1A; border-radius: 2px; }
