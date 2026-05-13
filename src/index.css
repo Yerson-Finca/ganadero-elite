@@ -3,17 +3,16 @@
 @tailwind utilities;
 
 /* ==================== COLORES DE TEXTO ==================== */
-.text-h1 { @apply text-accent text-h1; }
-.text-h2 { @apply text-accent text-h2; }
-.text-h3 { @apply text-accent text-h3; }
-.text-val { @apply text-white text-val; }
-.text-label { @apply text-text-secondary text-label; }
-.text-muted { @apply text-text-muted text-muted; }
+.text-h1 { @apply text-accent; font-size: 28px; font-weight: 900; line-height: 1.15; }
+.text-h2 { @apply text-accent; font-size: 18px; font-weight: 700; line-height: 1.2; }
+.text-h3 { @apply text-accent; font-size: 15px; font-weight: 600; line-height: 1.2; }
+.text-val { @apply text-white; font-size: 20px; font-weight: 800; line-height: 1.1; }
+.text-label { @apply text-text-secondary; font-size: 13px; font-weight: 400; }
+.text-muted { @apply text-text-muted; font-size: 11px; font-weight: 400; }
 .text-success { @apply text-success; }
 .text-danger { @apply text-danger; }
 .text-info { @apply text-info; }
 .text-ia { @apply text-ia; }
-
 /* ==================== RESET ==================== */
 * {
   margin: 0;
