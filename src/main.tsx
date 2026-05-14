@@ -14,4 +14,4 @@ if ('serviceWorker' in navigator) {
   })
 }
 
-export default Dashboard
+export default Main
